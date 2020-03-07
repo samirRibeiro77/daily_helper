@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: AppLocalizations.of(context).translate(StringKey.APP_NAME),
+      title: 'Daily Helper',
       theme: ThemeData(
         primarySwatch: Colors.red,
         brightness: Brightness.light
