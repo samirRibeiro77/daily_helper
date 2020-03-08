@@ -57,11 +57,17 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
           children: <Widget>[
             SizedBox(child: Container(width: 20.0)),
             Flexible(
-              child: Text(AppLocalizations.of(context).translate(StringKey.DRINK_1)),
+              child: Text(
+                AppLocalizations.of(context).translate(StringKey.DRINK_1),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
             ),
             SizedBox(child: Container(width: 20.0)),
             Flexible(
-              child: Text(AppLocalizations.of(context).translate(StringKey.DRINK_2)),
+              child: Text(
+                AppLocalizations.of(context).translate(StringKey.DRINK_2),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
             ),
             SizedBox(child: Container(width: 20.0))
           ],
@@ -77,7 +83,7 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value){ _valuesChange(); },
                 decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate(StringKey.MEASURE),
+                    labelText: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
                     labelStyle: TextStyle(color: Colors.black),
                     focusedBorder:
                     OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
@@ -94,7 +100,7 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onChanged: (value){ _valuesChange(); },
                   decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).translate(StringKey.MEASURE),
+                      labelText: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
                       labelStyle: TextStyle(color: Colors.black),
                       focusedBorder:
                       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
@@ -116,7 +122,7 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value){ _valuesChange(); },
                 decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate(StringKey.PRICE),
+                    labelText: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
                     labelStyle: TextStyle(color: Colors.black),
                     focusedBorder:
                     OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
@@ -133,7 +139,7 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onChanged: (value){ _valuesChange(); },
                   decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).translate(StringKey.PRICE),
+                      labelText: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
                       labelStyle: TextStyle(color: Colors.black),
                       focusedBorder:
                       OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),

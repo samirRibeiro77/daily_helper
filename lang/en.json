@@ -5,9 +5,15 @@
   "alcohol": "Alcohol",
   "gasoline": "Gasoline",
   "which_drink": "Which drink?",
-  "measure": "ML",
-  "price": "Price",
+  "drink_measure": "ML",
+  "drink_price": "Price",
   "drink1": "Drink 1",
   "drink2": "Drink 2",
-  "both_drinks": "Same price!"
+  "both_drinks": "Same price!",
+  "which_food": "Which food?",
+  "food_measure": "g",
+  "food_price": "Price",
+  "food1": "Food 1",
+  "food2": "Food 2",
+  "both_foods": "Same price!"
 }
