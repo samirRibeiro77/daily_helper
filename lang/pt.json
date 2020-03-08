@@ -4,5 +4,10 @@
   "which_fuel": "Qual combustivel?",
   "alcohol": "Alcool",
   "gasoline": "Gasolina",
-  "which_drink": "Qual bebida?"
+  "which_drink": "Qual bebida?",
+  "measure": "ML",
+  "price": "Preço",
+  "drink1": "Bebida 1",
+  "drink2": "Bebida 2",
+  "both_drinks": "Mesmo preço!"
 }

@@ -1,4 +1,4 @@
-import 'package:daily_helper/apps/which_drink/which_drink.dart';
+import 'package:daily_helper/apps/which_drink/ui/which_drink.dart';
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel.dart';
 import 'package:daily_helper/ui/home_tab.dart';
 import 'package:daily_helper/ui/widget/custom_drawer.dart';
