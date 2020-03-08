@@ -17,6 +17,7 @@ class DrawerTile extends StatelessWidget {
         case AppsEnum.which_fuel: return AppLocalizations.of(context).translate(StringKey.WHICH_FUEL);
         case AppsEnum.which_drink: return AppLocalizations.of(context).translate(StringKey.WHICH_DRINK);
         case AppsEnum.which_food: return AppLocalizations.of(context).translate(StringKey.WHICH_FOOD);
+        case AppsEnum.currency_converter: return AppLocalizations.of(context).translate(StringKey.CURRENCY_CONVERTER);
         default: return AppLocalizations.of(context).translate(StringKey.HOME);
       }
     }
@@ -26,6 +27,7 @@ class DrawerTile extends StatelessWidget {
         case AppsEnum.which_fuel: return Icons.local_gas_station;
         case AppsEnum.which_drink: return Icons.local_drink;
         case AppsEnum.which_food: return Icons.fastfood;
+        case AppsEnum.currency_converter: return Icons.monetization_on;
         default: return Icons.home;
       }
     }
