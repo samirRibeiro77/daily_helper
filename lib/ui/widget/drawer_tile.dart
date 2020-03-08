@@ -15,6 +15,7 @@ class DrawerTile extends StatelessWidget {
     String _getRowName() {
       switch (_appEnum) {
         case AppsEnum.which_fuel: return AppLocalizations.of(context).translate(StringKey.WHICH_FUEL);
+        case AppsEnum.which_drink: return AppLocalizations.of(context).translate(StringKey.WHICH_DRINK);
         default: return AppLocalizations.of(context).translate(StringKey.HOME);
       }
     }
@@ -22,6 +23,7 @@ class DrawerTile extends StatelessWidget {
     IconData _getRowIcon() {
       switch (_appEnum) {
         case AppsEnum.which_fuel: return Icons.local_gas_station;
+        case AppsEnum.which_drink: return Icons.local_drink;
         default: return Icons.home;
       }
     }

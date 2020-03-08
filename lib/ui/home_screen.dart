@@ -1,3 +1,4 @@
+import 'package:daily_helper/apps/which_drink/which_drink.dart';
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel.dart';
 import 'package:daily_helper/ui/home_tab.dart';
 import 'package:daily_helper/ui/widget/custom_drawer.dart';
@@ -37,6 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.black,
             ),
             body: WhichFuel()
+        ),
+        Scaffold(
+            drawer: CustomDrawer(_pageControle),
+            appBar: AppBar(
+              title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_DRINK)),
+              centerTitle: true,
+              backgroundColor: Colors.black,
+            ),
+            body: WhichDrink()
         )
       ],
     );
