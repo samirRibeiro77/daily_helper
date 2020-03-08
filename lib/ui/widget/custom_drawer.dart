@@ -48,7 +48,8 @@ class CustomDrawer extends StatelessWidget {
               Divider(),
               DrawerTile(AppsEnum.home, _pageControler, 0),
               DrawerTile(AppsEnum.which_fuel, _pageControler, 1),
-              DrawerTile(AppsEnum.which_drink, _pageControler, 2)
+              DrawerTile(AppsEnum.which_drink, _pageControler, 2),
+              DrawerTile(AppsEnum.which_food, _pageControler, 3)
             ],
           )
         ],
