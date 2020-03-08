@@ -1,3 +1,3 @@
 enum AppsEnum {
-  home, which_fuel
+  home, which_fuel, which_drink
 }

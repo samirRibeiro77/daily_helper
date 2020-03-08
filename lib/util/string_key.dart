@@ -4,4 +4,5 @@ class StringKey {
   static const String WHICH_FUEL = 'which_fuel';
   static const String ALCOHOL = 'alcohol';
   static const String GASOLINE = 'gasoline';
+  static const String WHICH_DRINK = 'which_drink';
 }
