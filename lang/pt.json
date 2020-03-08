@@ -1,3 +1,7 @@
 {
-  "app_name": "Dia a dia"
+  "app_name": "Dia a dia",
+  "home": "Pagina Inicial",
+  "which_fuel": "Qual combustivel?",
+  "alcohol": "Alcool",
+  "gasoline": "Gasolina"
 }

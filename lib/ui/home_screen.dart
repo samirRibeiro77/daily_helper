@@ -1,6 +1,10 @@
+import 'package:daily_helper/apps/which_fuel/which_fuel.dart';
 import 'package:daily_helper/ui/home_tab.dart';
 import 'package:daily_helper/ui/widget/custom_drawer.dart';
+import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
+
+import '../app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,10 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
         Scaffold(
           drawer: CustomDrawer(_pageControle),
           appBar: AppBar(
-            title: Text('About us'),
+            title: Text(AppLocalizations.of(context).translate(StringKey.HOME)),
             centerTitle: true,
+            backgroundColor: Colors.black,
           ),
-          body: HomeTab(),
+          body: HomeTab()
+        ),
+        Scaffold(
+            drawer: CustomDrawer(_pageControle),
+            appBar: AppBar(
+              title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_FUEL)),
+              centerTitle: true,
+              backgroundColor: Colors.black,
+            ),
+            body: WhichFuel()
         )
       ],
     );

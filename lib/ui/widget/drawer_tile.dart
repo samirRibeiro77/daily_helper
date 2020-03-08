@@ -14,8 +14,8 @@ class DrawerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String _getRowName() {
       switch (_appEnum) {
-        case AppsEnum.which_fuel: return AppLocalizations.of(context).translate(StringKey.APP_NAME);
-        default: return AppLocalizations.of(context).translate(StringKey.APP_NAME);
+        case AppsEnum.which_fuel: return AppLocalizations.of(context).translate(StringKey.WHICH_FUEL);
+        default: return AppLocalizations.of(context).translate(StringKey.HOME);
       }
     }
 
