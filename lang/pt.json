@@ -15,5 +15,10 @@
   "food_price": "Preço",
   "food1": "Comida 1",
   "food2": "Comida 2",
-  "both_foods": "Mesmo preço!"
+  "both_foods": "Mesmo preço!",
+  "currency_converter": "Conversor de moeda",
+  "brl": "Real",
+  "usd": "Dolar",
+  "eur": "Euro",
+  "btc": "Bitcoin"
 }

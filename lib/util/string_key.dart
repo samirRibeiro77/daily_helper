@@ -16,4 +16,9 @@ class StringKey {
   static const String FOOD_1 = 'food1';
   static const String FOOD_2 = 'food2';
   static const String BOTH_FOOD = 'both_foods';
+  static const String CURRENCY_CONVERTER = 'currency_converter';
+  static const String BRL = 'brl';
+  static const String USD = 'usd';
+  static const String EUR = 'eur';
+  static const String BTC = 'btc';
 }
