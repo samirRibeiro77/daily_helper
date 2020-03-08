@@ -1,4 +1,4 @@
-import 'package:daily_helper/apps/which_fuel/which_fuel_home.dart';
+import 'package:daily_helper/apps/which_fuel/ui/which_fuel_home.dart';
 import 'package:flutter/material.dart';
 
 class WhichFuel extends StatelessWidget {

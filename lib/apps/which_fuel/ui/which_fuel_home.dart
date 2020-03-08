@@ -2,8 +2,8 @@ import 'package:daily_helper/apps/which_fuel/core/which_fuel_math.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 
-import '../../app_localizations.dart';
-import 'core/which_fuel_answer.dart';
+import '../../../app_localizations.dart';
+import '../core/which_fuel_answer.dart';
 
 class WhichFuelHome extends StatefulWidget {
   @override
