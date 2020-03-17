@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Daily Helper',
       theme: ThemeData(
-        primarySwatch: Colors.red
+        primarySwatch: Colors.indigo
       ),
       supportedLocales: [
         Locale('en', 'US'),

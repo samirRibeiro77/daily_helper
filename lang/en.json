@@ -1,6 +1,7 @@
 {
   "app_name": "Daily Helper",
   "home": "Home",
+  "choose": "Choose:",
   "which_fuel": "Which fuel?",
   "alcohol": "Alcohol",
   "gasoline": "Gasoline",

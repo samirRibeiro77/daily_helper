@@ -1,4 +1,5 @@
 import 'package:daily_helper/apps/which_drink/core/which_drink_answer.dart';
+import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 
@@ -10,38 +11,43 @@ class WhichDrinkHome extends StatefulWidget {
 }
 
 class _WhichDrinkHomeState extends State<WhichDrinkHome> {
-  @override
-  Widget build(BuildContext context) {
-    final _d1MeasureController = TextEditingController();
-    final _d1PriceController = TextEditingController();
-    final _d2MeasureController = TextEditingController();
-    final _d2PriceController = TextEditingController();
-    final _whichDrinkController = TextEditingController();
+  final _d1MeasureController = TextEditingController();
+  final _d1PriceController = TextEditingController();
+  final _d2MeasureController = TextEditingController();
+  final _d2PriceController = TextEditingController();
+  String choose = "";
 
-    void _valuesChange() {
-      if(_d1MeasureController.text.isEmpty
-        |_d1PriceController.text.isEmpty
-        |_d2MeasureController.text.isEmpty
-        |_d2PriceController.text.isEmpty) {
-          _whichDrinkController.text = "";
-          return;
-      }
+  void _valuesChange() {
+    setState(() {
+      choose = _checkDrink();
+    });
+  }
 
-      var d1MeasureValue = double.parse(_d1MeasureController.value.text.replaceAll(',', '.'));
-      var d1PriceValue = double.parse(_d1PriceController.value.text.replaceAll(',', '.'));
-      var d2MeasureValue = double.parse(_d2MeasureController.value.text.replaceAll(',', '.'));
-      var d2PriceValue = double.parse(_d2PriceController.value.text.replaceAll(',', '.'));
+  String _checkDrink() {
+    if(_d1MeasureController.text.isEmpty
+    |_d1PriceController.text.isEmpty
+    |_d2MeasureController.text.isEmpty
+    |_d2PriceController.text.isEmpty) {
+      return "";
+    }
 
-      var answer = WhichDrinkAnswer(
+    var d1MeasureValue = double.parse(_d1MeasureController.value.text.replaceAll(',', '.'));
+    var d1PriceValue = double.parse(_d1PriceController.value.text.replaceAll(',', '.'));
+    var d2MeasureValue = double.parse(_d2MeasureController.value.text.replaceAll(',', '.'));
+    var d2PriceValue = double.parse(_d2PriceController.value.text.replaceAll(',', '.'));
+
+    var answer = WhichDrinkAnswer(
         D1Price: d1PriceValue,
         D1Qtd: d1MeasureValue,
         D2Price: d2PriceValue,
         D2Qtd: d2MeasureValue
-      );
+    );
 
-      _whichDrinkController.text = answer.result(context);
-    }
+    return "${AppLocalizations.of(context).translate(StringKey.CHOOSE)} ${answer.result(context)}";
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return ListView(
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
@@ -59,14 +65,20 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
             Flexible(
               child: Text(
                 AppLocalizations.of(context).translate(StringKey.DRINK_1),
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: WhichDrinkColors.TEXT_COLOR),
               ),
             ),
             SizedBox(child: Container(width: 20.0)),
             Flexible(
               child: Text(
                 AppLocalizations.of(context).translate(StringKey.DRINK_2),
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: WhichDrinkColors.TEXT_COLOR),
               ),
             ),
             SizedBox(child: Container(width: 20.0))
@@ -78,34 +90,34 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
           children: <Widget>[
             Flexible(
               child: TextField(
-                style: TextStyle(color: Colors.black, fontSize: 15.0),
+                style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
                 controller: _d1MeasureController,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value){ _valuesChange(); },
                 decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
-                    labelStyle: TextStyle(color: Colors.black),
+                    labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
                     focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
                     enabledBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
+                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
                 ),
               ),
             ),
             SizedBox(child: Container(width: 20.0)),
             Flexible(
               child: TextField(
-                  style: TextStyle(color: Colors.black, fontSize: 15.0),
+                  style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
                   controller: _d2MeasureController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onChanged: (value){ _valuesChange(); },
                   decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
                       focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
                       enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
+                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
                   )
               ),
             )
@@ -117,44 +129,47 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
           children: <Widget>[
             Flexible(
               child: TextField(
-                style: TextStyle(color: Colors.black, fontSize: 15.0),
+                style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
                 controller: _d1PriceController,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value){ _valuesChange(); },
                 decoration: InputDecoration(
                     labelText: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
-                    labelStyle: TextStyle(color: Colors.black),
+                    labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
                     focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
                     enabledBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
+                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
                 ),
               ),
             ),
             SizedBox(child: Container(width: 20.0)),
             Flexible(
               child: TextField(
-                  style: TextStyle(color: Colors.black, fontSize: 15.0),
+                  style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
                   controller: _d2PriceController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   onChanged: (value){ _valuesChange(); },
                   decoration: InputDecoration(
                       labelText: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
                       focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
                       enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: Colors.black))
+                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
                   )
               ),
             )
           ],
         ),
-        TextField(
-          enabled: false,
+        SizedBox(child: Container(height: 20.0)),
+        Text(
+          choose,
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black, fontSize: 20.0),
-          controller: _whichDrinkController,
+          style: TextStyle(
+            color: WhichDrinkColors.TEXT_COLOR,
+            fontSize: 22.0
+          ),
         )
       ],
     );

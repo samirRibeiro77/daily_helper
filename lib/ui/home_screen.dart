@@ -1,7 +1,11 @@
 import 'package:daily_helper/apps/currency_converter/ui/currency_converter.dart';
+import 'package:daily_helper/apps/currency_converter/ui/currency_converter_colors.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink.dart';
+import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
 import 'package:daily_helper/apps/which_food/ui/which_food.dart';
+import 'package:daily_helper/apps/which_food/ui/which_food_colors.dart';
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel.dart';
+import 'package:daily_helper/apps/which_fuel/ui/which_fuel_colors.dart';
 import 'package:daily_helper/ui/home_tab.dart';
 import 'package:daily_helper/ui/widget/custom_drawer.dart';
 import 'package:daily_helper/util/string_key.dart';
@@ -37,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_FUEL)),
               centerTitle: true,
-              backgroundColor: Colors.black,
+              backgroundColor: WhichFuelColors.PRIMARY_COLOR,
             ),
             body: WhichFuel()
         ),
@@ -46,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_DRINK)),
               centerTitle: true,
-              backgroundColor: Colors.black,
+              backgroundColor: WhichDrinkColors.PRIMARY_COLOR,
             ),
             body: WhichDrink()
         ),
@@ -55,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_FOOD)),
               centerTitle: true,
-              backgroundColor: Colors.black,
+              backgroundColor: WhichFoodColors.PRIMARY_COLOR,
             ),
             body: WhichFood()
         ),
@@ -64,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text(AppLocalizations.of(context).translate(StringKey.CURRENCY_CONVERTER)),
               centerTitle: true,
-              backgroundColor: Colors.black,
+              backgroundColor: CurrencyConverterColors.PRIMARY_COLOR,
             ),
             body: CurrencyConverter()
         )
