@@ -1,13 +1,15 @@
-import 'package:daily_helper/apps/currency_converter/core/currency_converter_api.dart';
 import 'package:daily_helper/apps/currency_converter/core/currency_converter_coin.dart';
 import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class CurrencyConverterQuotation {
+  static const String requestUrl = "https://api.hgbrasil.com/finance?format=json&key=ea3cbde1";
   CurrencyConverterCoin _usd, _euro, _btc;
 
   Future<Map> getData() async {
-    var httpRequest = CurrencyConverterApi(CurrencyConverterApi.REQUEST_URL);
-    var quotationJson = await httpRequest.data;
+    var httpRequest = await http.get(requestUrl);
+    var quotationJson = json.decode(httpRequest.body);
 
     _usd = CurrencyConverterCoin(
         quotationJson["results"]["currencies"]["USD"]["buy"],

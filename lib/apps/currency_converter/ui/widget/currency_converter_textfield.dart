@@ -14,17 +14,29 @@ class CurrencyConverterTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: CurrencyConverterColors.TEXT_COLOR, fontSize: 25.0),
+      style: TextStyle(color: CurrencyConverterColors.TEXT_COLOR, fontSize: 20.0),
       controller: _controller,
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       onChanged: _function,
       decoration: InputDecoration(
           labelText: _label,
-          labelStyle: TextStyle(color: CurrencyConverterColors.PRIMARY_COLOR),
-          focusedBorder:
-          OutlineInputBorder(borderSide: BorderSide(color: CurrencyConverterColors.PRIMARY_COLOR)),
-          enabledBorder:
-          OutlineInputBorder(borderSide: BorderSide(color: CurrencyConverterColors.PRIMARY_COLOR)),
+          labelStyle: TextStyle(
+              color: CurrencyConverterColors.PRIMARY_COLOR
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: CurrencyConverterColors.PRIMARY_COLOR
+              )
+          ),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: CurrencyConverterColors.PRIMARY_COLOR
+              )
+          ),
+          prefixStyle: TextStyle(
+              color: CurrencyConverterColors.PRIMARY_COLOR,
+              fontSize: 25.0
+          ),
           prefixText: _prefix + " "),
     );
   }
