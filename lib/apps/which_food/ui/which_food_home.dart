@@ -1,4 +1,5 @@
 import 'package:daily_helper/apps/which_food/core/which_food_answer.dart';
+import 'package:daily_helper/apps/which_food/ui/widget/which_food_textfield.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 import '../../../app_localizations.dart';
@@ -51,10 +52,11 @@ class _WhichFoodHomeState extends State<WhichFoodHome> {
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(20),
-          child: Container(
-            height: 200.0,
-            child: Image.asset('assets/images/which_food_icon.png'),
+          padding: EdgeInsets.all(20.0),
+          child: Icon(
+              Icons.fastfood,
+              size: 150.0,
+              color: WhichFoodColors.PRIMARY_COLOR
           ),
         ),
         Row(
@@ -87,38 +89,16 @@ class _WhichFoodHomeState extends State<WhichFoodHome> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: WhichFoodColors.TEXT_COLOR, fontSize: 15.0),
-                controller: _f1MeasureController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onChanged: (value){ _valuesChange(); },
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate(StringKey.FOOD_MEASURE),
-                    labelStyle: TextStyle(color: WhichFoodColors.PRIMARY_COLOR),
-                    focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR)),
-                    enabledBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR))
-                ),
-              ),
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.FOOD_MEASURE),
+              controller: _f1MeasureController,
+              function: _valuesChange,
             ),
             SizedBox(child: Container(width: 20.0)),
-            Flexible(
-              child: TextField(
-                  style: TextStyle(color: WhichFoodColors.TEXT_COLOR, fontSize: 15.0),
-                  controller: _f2MeasureController,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  onChanged: (value){ _valuesChange(); },
-                  decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).translate(StringKey.FOOD_MEASURE),
-                      labelStyle: TextStyle(color: WhichFoodColors.PRIMARY_COLOR),
-                      focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR)),
-                      enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR))
-                  )
-              ),
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.FOOD_MEASURE),
+              controller: _f2MeasureController,
+              function: _valuesChange,
             )
           ],
         ),
@@ -126,38 +106,16 @@ class _WhichFoodHomeState extends State<WhichFoodHome> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: WhichFoodColors.TEXT_COLOR, fontSize: 15.0),
-                controller: _f1PriceController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onChanged: (value){ _valuesChange(); },
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate(StringKey.FOOD_PRICE),
-                    labelStyle: TextStyle(color: WhichFoodColors.PRIMARY_COLOR),
-                    focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR)),
-                    enabledBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR))
-                ),
-              ),
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.FOOD_PRICE),
+              controller: _f1PriceController,
+              function: _valuesChange,
             ),
             SizedBox(child: Container(width: 20.0)),
-            Flexible(
-              child: TextField(
-                  style: TextStyle(color: WhichFoodColors.TEXT_COLOR, fontSize: 15.0),
-                  controller: _f2PriceController,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  onChanged: (value){ _valuesChange(); },
-                  decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).translate(StringKey.FOOD_PRICE),
-                      labelStyle: TextStyle(color: WhichFoodColors.PRIMARY_COLOR),
-                      focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR)),
-                      enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichFoodColors.SECONDARY_COLOR))
-                  )
-              ),
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.FOOD_PRICE),
+              controller: _f2PriceController,
+              function: _valuesChange,
             )
           ],
         ),

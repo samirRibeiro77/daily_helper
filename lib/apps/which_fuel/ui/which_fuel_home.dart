@@ -1,4 +1,5 @@
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel_colors.dart';
+import 'package:daily_helper/apps/which_fuel/ui/widget/which_fuel_textfield.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 import '../../../app_localizations.dart';
@@ -48,38 +49,16 @@ class _WhichFuelHomeState extends State<WhichFuelHome> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: WhichFuelColors.TEXT_COLOR, fontSize: 15.0),
-                controller: _alcoholController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onChanged: (value){ _valuesChange(); },
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate(StringKey.ALCOHOL),
-                    labelStyle: TextStyle(color: WhichFuelColors.PRIMARY_COLOR),
-                    focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichFuelColors.PRIMARY_COLOR)),
-                    enabledBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichFuelColors.PRIMARY_COLOR))
-                ),
-              ),
+            WhichFuelTextField(
+              label: AppLocalizations.of(context).translate(StringKey.ALCOHOL),
+              controller: _alcoholController,
+              function: _valuesChange,
             ),
             SizedBox(child: Container(width: 20.0)),
-            Flexible(
-              child: TextField(
-                  style: TextStyle(color: WhichFuelColors.TEXT_COLOR, fontSize: 15.0),
-                  controller: _gasolineController,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  onChanged: (value){ _valuesChange(); },
-                  decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).translate(StringKey.GASOLINE),
-                      labelStyle: TextStyle(color: WhichFuelColors.PRIMARY_COLOR),
-                      focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichFuelColors.PRIMARY_COLOR)),
-                      enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichFuelColors.PRIMARY_COLOR))
-                  )
-              ),
+            WhichFuelTextField(
+              label: AppLocalizations.of(context).translate(StringKey.GASOLINE),
+              controller: _gasolineController,
+              function: _valuesChange,
             )
           ],
         ),

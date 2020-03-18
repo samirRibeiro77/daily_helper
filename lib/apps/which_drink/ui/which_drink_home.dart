@@ -1,5 +1,6 @@
 import 'package:daily_helper/apps/which_drink/core/which_drink_answer.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
+import 'package:daily_helper/apps/which_drink/ui/widget/which_drink_textfield.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 
@@ -89,78 +90,34 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
-                controller: _d1MeasureController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onChanged: (value){ _valuesChange(); },
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
-                    labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
-                    focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
-                    enabledBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
-                ),
-              ),
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
+              controller: _d1MeasureController,
+              function: _valuesChange,
             ),
             SizedBox(child: Container(width: 20.0)),
-            Flexible(
-              child: TextField(
-                  style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
-                  controller: _d2MeasureController,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  onChanged: (value){ _valuesChange(); },
-                  decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
-                      labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
-                      focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
-                      enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
-                  )
-              ),
-            )
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.DRINK_MEASURE),
+              controller: _d2MeasureController,
+              function: _valuesChange,
+            ),
           ],
         ),
         SizedBox(child: Container(height: 20.0)),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Flexible(
-              child: TextField(
-                style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
-                controller: _d1PriceController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                onChanged: (value){ _valuesChange(); },
-                decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
-                    labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
-                    focusedBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
-                    enabledBorder:
-                    OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
-                ),
-              ),
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
+              controller: _d1PriceController,
+              function: _valuesChange,
             ),
             SizedBox(child: Container(width: 20.0)),
-            Flexible(
-              child: TextField(
-                  style: TextStyle(color: WhichDrinkColors.TEXT_COLOR, fontSize: 15.0),
-                  controller: _d2PriceController,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  onChanged: (value){ _valuesChange(); },
-                  decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
-                      labelStyle: TextStyle(color: WhichDrinkColors.PRIMARY_COLOR),
-                      focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR)),
-                      enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(color: WhichDrinkColors.PRIMARY_COLOR))
-                  )
-              ),
-            )
+            WhichFoodTextField(
+              label: AppLocalizations.of(context).translate(StringKey.DRINK_PRICE),
+              controller: _d2PriceController,
+              function: _valuesChange,
+            ),
           ],
         ),
         SizedBox(child: Container(height: 20.0)),
