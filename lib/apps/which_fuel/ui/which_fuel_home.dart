@@ -39,10 +39,11 @@ class _WhichFuelHomeState extends State<WhichFuelHome> {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.all(20.0),
-          child: Container(
-            height: 200.0,
-            child: Image.asset('assets/images/which_fuel_icon.png'),
-          )
+          child: Icon(
+              Icons.local_gas_station,
+              size: 150.0,
+              color: WhichFuelColors.PRIMARY_COLOR
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

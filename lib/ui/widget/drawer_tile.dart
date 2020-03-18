@@ -1,3 +1,7 @@
+import 'package:daily_helper/apps/currency_converter/ui/currency_converter_colors.dart';
+import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
+import 'package:daily_helper/apps/which_food/ui/which_food_colors.dart';
+import 'package:daily_helper/apps/which_fuel/ui/which_fuel_colors.dart';
 import 'package:daily_helper/util/apps_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:daily_helper/util/string_key.dart';
@@ -32,6 +36,16 @@ class DrawerTile extends StatelessWidget {
       }
     }
 
+    Color _getRowColor() {
+      switch (_appEnum) {
+        case AppsEnum.which_fuel: return WhichFuelColors.PRIMARY_COLOR;
+        case AppsEnum.which_drink: return WhichDrinkColors.PRIMARY_COLOR;
+        case AppsEnum.which_food: return WhichFoodColors.PRIMARY_COLOR;
+        case AppsEnum.currency_converter: return CurrencyConverterColors.PRIMARY_COLOR;
+        default: return Theme.of(context).primaryColor;
+      }
+    }
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -47,7 +61,7 @@ class DrawerTile extends StatelessWidget {
                   _getRowIcon(),
                   size: 32.0,
                   color: _pageController.page.round() == _page
-                      ? Theme.of(context).primaryColor
+                      ? _getRowColor()
                       : Colors.grey[700]
               ),
               SizedBox(width: 32.0),
@@ -56,7 +70,7 @@ class DrawerTile extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16.0,
                     color: _pageController.page.round() == _page
-                        ? Theme.of(context).primaryColor
+                        ? _getRowColor()
                         : Colors.grey[700]
                 ),
               )

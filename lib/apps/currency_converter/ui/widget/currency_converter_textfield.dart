@@ -35,7 +35,7 @@ class CurrencyConverterTextfield extends StatelessWidget {
           ),
           prefixStyle: TextStyle(
               color: CurrencyConverterColors.PRIMARY_COLOR,
-              fontSize: 25.0
+              fontSize: 22.0
           ),
           prefixText: _prefix + " "),
     );

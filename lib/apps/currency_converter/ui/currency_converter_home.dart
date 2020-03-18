@@ -106,7 +106,7 @@ class _CurrencyConverterHomeState extends State<CurrencyConverterHome> {
                   child: Icon(
                       Icons.monetization_on,
                       size: 150.0,
-                      color: Colors.amber
+                      color: CurrencyConverterColors.PRIMARY_COLOR
                   ),
                 ),
                 CurrencyConverterTextfield(

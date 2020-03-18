@@ -52,10 +52,11 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(20),
-          child: Container(
-            height: 200.0,
-            child: Image.asset('assets/images/which_drink_icon.png'),
+          padding: EdgeInsets.all(20.0),
+          child: Icon(
+              Icons.local_drink,
+              size: 150.0,
+              color: WhichDrinkColors.PRIMARY_COLOR
           ),
         ),
         Row(
