@@ -115,21 +115,21 @@ class _CurrencyConverterHomeState extends State<CurrencyConverterHome> {
                     _realController,
                     _realChanged
                 ),
-                Divider(),
+                SizedBox(child: Container(height: 10.0)),
                 CurrencyConverterTextfield(
                     AppLocalizations.of(context).translate(StringKey.USD),
                     CurrencyConverterCoin.USD,
                     _dollarController,
                     _dollarChanged
                 ),
-                Divider(),
+                SizedBox(child: Container(height: 10.0)),
                 CurrencyConverterTextfield(
                     AppLocalizations.of(context).translate(StringKey.EUR),
                     CurrencyConverterCoin.EUR,
                     _euroController,
                     _euroChanged
                 ),
-                Divider(),
+                SizedBox(child: Container(height: 10.0)),
                 CurrencyConverterTextfield(
                     AppLocalizations.of(context).translate(StringKey.BTC),
                     CurrencyConverterCoin.BTC,

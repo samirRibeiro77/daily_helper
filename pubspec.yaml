@@ -25,7 +25,6 @@ flutter:
 
   assets:
     - lang/
-    - assets/images/
 
 flutter_icons:
   android: true
