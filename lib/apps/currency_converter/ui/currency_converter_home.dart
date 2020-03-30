@@ -2,6 +2,7 @@ import 'package:daily_helper/apps/currency_converter/core/currency_converter_coi
 import 'package:daily_helper/apps/currency_converter/core/currency_converter_quotation.dart';
 import 'package:daily_helper/apps/currency_converter/ui/currency_converter_colors.dart';
 import 'package:daily_helper/apps/currency_converter/ui/widget/currency_converter_textfield.dart';
+import 'package:daily_helper/ui/widget/app_icon.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 import '../../../app_localizations.dart';
@@ -101,13 +102,9 @@ class _CurrencyConverterHomeState extends State<CurrencyConverterHome> {
             return ListView(
               padding: EdgeInsets.all(10.0),
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Icon(
-                      Icons.monetization_on,
-                      size: 150.0,
-                      color: CurrencyConverterColors.PRIMARY_COLOR
-                  ),
+                AppIcon(
+                    Icons.monetization_on,
+                    CurrencyConverterColors.PRIMARY_COLOR
                 ),
                 CurrencyConverterTextfield(
                     AppLocalizations.of(context).translate(StringKey.BRL),

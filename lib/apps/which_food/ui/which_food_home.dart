@@ -1,5 +1,6 @@
 import 'package:daily_helper/apps/which_food/core/which_food_answer.dart';
 import 'package:daily_helper/apps/which_food/ui/widget/which_food_textfield.dart';
+import 'package:daily_helper/ui/widget/app_icon.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 import '../../../app_localizations.dart';
@@ -51,13 +52,9 @@ class _WhichFoodHomeState extends State<WhichFoodHome> {
     return ListView(
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Icon(
-              Icons.fastfood,
-              size: 150.0,
-              color: WhichFoodColors.PRIMARY_COLOR
-          ),
+        AppIcon(
+            Icons.fastfood,
+            WhichFoodColors.PRIMARY_COLOR
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

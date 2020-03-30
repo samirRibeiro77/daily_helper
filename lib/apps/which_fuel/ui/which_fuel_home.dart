@@ -1,5 +1,6 @@
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel_colors.dart';
 import 'package:daily_helper/apps/which_fuel/ui/widget/which_fuel_textfield.dart';
+import 'package:daily_helper/ui/widget/app_icon.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 import '../../../app_localizations.dart';
@@ -38,13 +39,9 @@ class _WhichFuelHomeState extends State<WhichFuelHome> {
     return ListView(
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Icon(
-              Icons.local_gas_station,
-              size: 150.0,
-              color: WhichFuelColors.PRIMARY_COLOR
-          ),
+        AppIcon(
+            Icons.local_gas_station,
+            WhichFuelColors.PRIMARY_COLOR
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

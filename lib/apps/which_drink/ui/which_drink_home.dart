@@ -1,6 +1,7 @@
 import 'package:daily_helper/apps/which_drink/core/which_drink_answer.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
 import 'package:daily_helper/apps/which_drink/ui/widget/which_drink_textfield.dart';
+import 'package:daily_helper/ui/widget/app_icon.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 
@@ -52,13 +53,9 @@ class _WhichDrinkHomeState extends State<WhichDrinkHome> {
     return ListView(
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Icon(
-              Icons.local_drink,
-              size: 150.0,
-              color: WhichDrinkColors.PRIMARY_COLOR
-          ),
+        AppIcon(
+            Icons.local_drink,
+            WhichDrinkColors.PRIMARY_COLOR
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
