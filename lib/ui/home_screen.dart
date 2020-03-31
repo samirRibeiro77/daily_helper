@@ -7,7 +7,7 @@ import 'package:daily_helper/apps/which_food/ui/which_food.dart';
 import 'package:daily_helper/apps/which_food/ui/which_food_colors.dart';
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel.dart';
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel_colors.dart';
-import 'package:daily_helper/ui/home_tab.dart';
+import 'package:daily_helper/apps/home/ui/home.dart';
 import 'package:daily_helper/ui/widget/custom_drawer.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
             backgroundColor: Colors.black,
           ),
-          body: HomeTab(),
+          body: Home(),
           backgroundColor: Colors.grey[900],
         ),
         Scaffold(
