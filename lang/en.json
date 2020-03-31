@@ -21,5 +21,6 @@
   "brl": "Real",
   "usd": "Dollar",
   "eur": "Euro",
-  "btc": "Bitcoin"
+  "btc": "Bitcoin",
+  "info": "More info..."
 }

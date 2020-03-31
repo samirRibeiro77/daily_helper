@@ -1,5 +1,6 @@
 import 'package:daily_helper/apps/currency_converter/ui/currency_converter.dart';
 import 'package:daily_helper/apps/currency_converter/ui/currency_converter_colors.dart';
+import 'package:daily_helper/apps/info/ui/info.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
 import 'package:daily_helper/apps/which_food/ui/which_food.dart';
@@ -72,7 +73,16 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: CurrencyConverterColors.PRIMARY_COLOR,
             ),
             body: CurrencyConverter()
-        )
+        ),
+        Scaffold(
+          drawer: CustomDrawer(_pageControle),
+          appBar: AppBar(
+            title: Text(AppLocalizations.of(context).translate(StringKey.INFO)),
+            centerTitle: true,
+            backgroundColor: Colors.black,
+          ),
+          body: Info(),
+        ),
       ],
     );
   }

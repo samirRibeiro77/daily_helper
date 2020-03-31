@@ -22,4 +22,5 @@ class StringKey {
   static const String USD = 'usd';
   static const String EUR = 'eur';
   static const String BTC = 'btc';
+  static const String INFO = 'info';
 }
