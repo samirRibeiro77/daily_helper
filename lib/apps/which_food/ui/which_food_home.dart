@@ -104,13 +104,13 @@ class _WhichFoodHomeState extends State<WhichFoodHome> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             WhichFoodTextField(
-              label: AppLocalizations.of(context).translate(StringKey.FOOD_PRICE),
+              label: AppLocalizations.of(context).translate(StringKey.PRICE),
               controller: _f1PriceController,
               function: _valuesChange,
             ),
             SizedBox(child: Container(width: 20.0)),
             WhichFoodTextField(
-              label: AppLocalizations.of(context).translate(StringKey.FOOD_PRICE),
+              label: AppLocalizations.of(context).translate(StringKey.PRICE),
               controller: _f2PriceController,
               function: _valuesChange,
             )

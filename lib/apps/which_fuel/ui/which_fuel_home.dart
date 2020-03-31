@@ -46,14 +46,41 @@ class _WhichFuelHomeState extends State<WhichFuelHome> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            SizedBox(child: Container(width: 20.0)),
+            Flexible(
+              child: Text(
+                AppLocalizations.of(context).translate(StringKey.ALCOHOL),
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: WhichFuelColors.TEXT_COLOR),
+              ),
+            ),
+            SizedBox(child: Container(width: 20.0)),
+            Flexible(
+              child: Text(
+                AppLocalizations.of(context).translate(StringKey.GASOLINE),
+                style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: WhichFuelColors.TEXT_COLOR),
+              ),
+            ),
+            SizedBox(child: Container(width: 20.0))
+          ],
+        ),
+        SizedBox(child: Container(height: 20.0)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
             WhichFuelTextField(
-              label: AppLocalizations.of(context).translate(StringKey.ALCOHOL),
+              label: AppLocalizations.of(context).translate(StringKey.PRICE),
               controller: _alcoholController,
               function: _valuesChange,
             ),
             SizedBox(child: Container(width: 20.0)),
             WhichFuelTextField(
-              label: AppLocalizations.of(context).translate(StringKey.GASOLINE),
+              label: AppLocalizations.of(context).translate(StringKey.PRICE),
               controller: _gasolineController,
               function: _valuesChange,
             )
