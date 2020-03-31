@@ -34,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
             backgroundColor: Colors.black,
           ),
-          body: HomeTab()
+          body: HomeTab(),
+          backgroundColor: Colors.grey[900],
         ),
         Scaffold(
             drawer: CustomDrawer(_pageControle),

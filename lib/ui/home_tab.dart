@@ -1,3 +1,4 @@
+import 'package:daily_helper/ui/widget/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatefulWidget {
@@ -11,12 +12,16 @@ class _HomeTabState extends State<HomeTab> {
     return ListView(
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
-          child: Icon(
-              Icons.person_outline,
-              size: 150.0,
-              color: Colors.indigo
+        AppIcon(
+            Icons.person_outline,
+            Colors.white
+        ),
+        Text(
+          "Developer:",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.white
           ),
         ),
         Text(
@@ -24,9 +29,27 @@ class _HomeTabState extends State<HomeTab> {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
             fontSize: 20.0,
           ),
         ),
+        SizedBox(child: Container(height: 30.0)),
+        SelectableText(
+            "+55 (31) 98605-5571",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15.0,
+            )
+        ),
+        SelectableText(
+            "samir.sjr77@gmail.com",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15.0,
+            )
+        )
       ],
     );
   }
