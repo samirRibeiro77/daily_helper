@@ -30,12 +30,12 @@ class CustomDrawer extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(bottom: 8.0),
-                  padding: EdgeInsets.fromLTRB(0.0, 16.0, 16.0, 8.0),
+                  padding: EdgeInsets.fromLTRB(0.0, 20.0, 16.0, 8.0),
                   height: 80.0,
                   child: Stack(
                     children: <Widget>[
                       Positioned(
-                        top: 8.0,
+                        top: 12.0,
                         left: 0.0,
                         child: Text(
                           AppLocalizations.of(context).translate(StringKey.APP_NAME),

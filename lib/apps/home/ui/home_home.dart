@@ -1,4 +1,5 @@
 import 'package:daily_helper/app_localizations.dart';
+import 'package:daily_helper/apps/home/ui/home_colors.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _HomeHomeState extends State<HomeHome> {
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 100.0,
-                color: Colors.white
+                color: HomeColors.TEXT_COLOR
             ),
           ),
         ),
@@ -49,7 +50,7 @@ class _HomeHomeState extends State<HomeHome> {
               style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 15.0,
-                  color: Colors.white
+                  color: HomeColors.TEXT_COLOR
               ),
             ),
           ),

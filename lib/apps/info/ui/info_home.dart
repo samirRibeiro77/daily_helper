@@ -1,3 +1,4 @@
+import 'package:daily_helper/apps/info/ui/info_colors.dart';
 import 'package:daily_helper/ui/widget/app_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +18,14 @@ class _InfoHomeState extends State<InfoHome> {
           children: <Widget>[
             AppIcon(
                 Icons.person_outline,
-                Colors.white
+                InfoColors.TEXT_COLOR
             ),
             Text(
               "Developer:",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 12.0,
-                  color: Colors.white
+                  color: InfoColors.TEXT_COLOR
               ),
             ),
             Text(
@@ -32,7 +33,7 @@ class _InfoHomeState extends State<InfoHome> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: InfoColors.TEXT_COLOR,
                 fontSize: 20.0,
               ),
             ),
@@ -41,25 +42,13 @@ class _InfoHomeState extends State<InfoHome> {
         SizedBox(child: Container(height: 30.0)),
         Padding(
           padding: EdgeInsets.only(bottom: 40.0),
-          child: Column(
-            children: <Widget>[
-              SelectableText(
-                  "+55 (31) 98605-5571",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15.0,
-                  )
-              ),
-              SelectableText(
-                  "samir.sjr77@gmail.com",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15.0,
-                  )
+          child: Text(
+            "Version:\n1.0.0",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: InfoColors.TEXT_COLOR,
+                fontSize: 15.0,
               )
-            ],
           ),
         )
       ],
