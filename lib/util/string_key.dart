@@ -24,4 +24,9 @@ class StringKey {
   static const String BTC = 'btc';
   static const String INFO = 'info';
   static const String CONTACT_US = 'contact_us';
+  static const String SPLIT_BILLS = 'split_bills';
+  static const String PEOPLE = 'people';
+  static const String NAME = 'name';
+  static const String ITEM = 'item';
+  static const String TOTAL = 'total';
 }
