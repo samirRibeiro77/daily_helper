@@ -1,8 +1,6 @@
 import 'package:daily_helper/apps/currency_converter/ui/currency_converter.dart';
 import 'package:daily_helper/apps/currency_converter/ui/currency_converter_colors.dart';
 import 'package:daily_helper/apps/info/ui/info.dart';
-import 'package:daily_helper/apps/split_bills/ui/split_bills.dart';
-import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
 import 'package:daily_helper/apps/which_food/ui/which_food.dart';
@@ -39,15 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: Home(),
           backgroundColor: Colors.grey[900],
-        ),
-        Scaffold(
-            drawer: CustomDrawer(_pageControle),
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate(StringKey.SPLIT_BILLS)),
-              centerTitle: true,
-              backgroundColor: SplitBillsColors.PRIMARY_COLOR,
-            ),
-            body: SplitBills()
         ),
         Scaffold(
             drawer: CustomDrawer(_pageControle),

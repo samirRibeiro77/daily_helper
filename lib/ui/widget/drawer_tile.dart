@@ -1,5 +1,4 @@
 import 'package:daily_helper/apps/currency_converter/ui/currency_converter_colors.dart';
-import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
 import 'package:daily_helper/apps/which_drink/ui/which_drink_colors.dart';
 import 'package:daily_helper/apps/which_food/ui/which_food_colors.dart';
 import 'package:daily_helper/apps/which_fuel/ui/which_fuel_colors.dart';
@@ -24,7 +23,6 @@ class DrawerTile extends StatelessWidget {
         case AppsEnum.which_food: return AppLocalizations.of(context).translate(StringKey.WHICH_FOOD);
         case AppsEnum.currency_converter: return AppLocalizations.of(context).translate(StringKey.CURRENCY_CONVERTER);
         case AppsEnum.info: return AppLocalizations.of(context).translate(StringKey.INFO);
-        case AppsEnum.split_bills: return AppLocalizations.of(context).translate(StringKey.SPLIT_BILLS);
         default: return AppLocalizations.of(context).translate(StringKey.HOME);
       }
     }
@@ -36,7 +34,6 @@ class DrawerTile extends StatelessWidget {
         case AppsEnum.which_food: return Icons.fastfood;
         case AppsEnum.currency_converter: return Icons.monetization_on;
         case AppsEnum.info: return Icons.info;
-        case AppsEnum.split_bills: return Icons.attach_money;
         default: return Icons.home;
       }
     }
@@ -47,7 +44,6 @@ class DrawerTile extends StatelessWidget {
         case AppsEnum.which_drink: return WhichDrinkColors.PRIMARY_COLOR;
         case AppsEnum.which_food: return WhichFoodColors.PRIMARY_COLOR;
         case AppsEnum.currency_converter: return CurrencyConverterColors.PRIMARY_COLOR;
-        case AppsEnum.split_bills: return SplitBillsColors.PRIMARY_COLOR;
         default: return Theme.of(context).primaryColor;
       }
     }
