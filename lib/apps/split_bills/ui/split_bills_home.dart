@@ -18,7 +18,7 @@ class _SplitBillsHomeState extends State<SplitBillsHome> {
         SplitBillsItemCard(),
         SizedBox(height: 20.0),
         ExpansionTile(
-          title: Text("Total"),
+          title: Text("Bill total"),
           children: <Widget>[
             Card()
           ],
