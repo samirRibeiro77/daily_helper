@@ -1,20 +1,20 @@
-import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
-
 class SplitBillsPeople {
-  final String _name;
-  double _value;
-  List<SplitBillsItem> _items;
+  String _name;
+  double value;
 
   SplitBillsPeople(this._name) {
-    this._value = 0.0;
-    this._items = [];
+    this.value = 0.0;
   }
 
-  void addItem(SplitBillsItem item) {
-    this._items.add(item);
+  SplitBillsPeople.fromJson(Map<String, dynamic> json) {
+    this._name = json["name"].toString();
+    this.value = double.parse(json["value"].toString());
   }
 
-  List<SplitBillsItem> get items => _items;
-  double get value => _value;
+  Map<String, dynamic> toJson() => {
+    "name": _name,
+    "value": value,
+  };
+
   String get name => _name;
 }

@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
               centerTitle: true,
               backgroundColor: SplitBillsColors.PRIMARY_COLOR,
             ),
-            body: SplitBills()
+            body: SplitBills(_pageControle)
         ),
         Scaffold(
             drawer: CustomDrawer(_pageControle),
