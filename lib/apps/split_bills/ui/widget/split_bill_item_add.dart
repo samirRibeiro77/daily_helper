@@ -44,10 +44,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
     Navigator.of(context).pop();
   }
 
-  @override
-  void initState() {
-    super.initState();
-
+  void _load() {
     _database.readData(SplitBillsDatabase.PEOPLE_FILE).then((data) {
       List mapJson = json.decode(data);
       mapJson.forEach((jsonData) {
@@ -67,6 +64,12 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
         });
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
   }
 
   @override
