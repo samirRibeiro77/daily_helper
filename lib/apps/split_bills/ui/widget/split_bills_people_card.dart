@@ -25,20 +25,24 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-
+  void _load() {
+    _peopleList = [];
     _database.readData(SplitBillsDatabase.PEOPLE_FILE).then((data) {
       List mapJson = json.decode(data);
       mapJson.forEach((jsonData) {
-        print(jsonData);
         var people = SplitBillsPeople.fromJson(jsonData);
         setState(() {
+          print("${people.name} => ${people.value}");
           _peopleList.add(people);
         });
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
   }
 
   @override
@@ -47,8 +51,21 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
       child: ExpansionTile(
         title: Text(AppLocalizations.of(context).translate(StringKey.PEOPLE)),
         children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              SizedBox(width: 1.0),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: GestureDetector(
+                  onTap: _load,
+                  child: Icon(Icons.sync, color: SplitBillsColors.PRIMARY_COLOR),
+                ),
+              )
+            ],
+          ),
           Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class SplitBillsTextField extends StatelessWidget {
   final String label;
   final TextEditingController controller;
+  final Function function;
   final bool isNumber;
 
-  SplitBillsTextField({this.label, this.controller, this.isNumber = false});
+  SplitBillsTextField({this.label, this.controller, this.isNumber = false, this.function});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class SplitBillsTextField extends StatelessWidget {
       child: TextField(
         style: TextStyle(color: SplitBillsColors.TEXT_COLOR, fontSize: 15.0),
         controller: controller,
+        onChanged: (val) { function(); },
         keyboardType: isNumber
             ? TextInputType.numberWithOptions(decimal: true)
             : TextInputType.text,

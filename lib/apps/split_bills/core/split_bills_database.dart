@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_people.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -9,7 +10,7 @@ class SplitBillsDatabase {
 
   Future<File> _getFile(String fileName) async {
     final directory = await getApplicationDocumentsDirectory();
-    var file = await File("${directory.path}/$fileName");
+    var file = File("${directory.path}/$fileName");
     var fileExists = await file.exists();
     if (!fileExists) {
       await file.create(recursive: true);
@@ -37,10 +38,10 @@ class SplitBillsDatabase {
     return file.writeAsString(dataJson);
   }
 
-  Future<File> saveItems(List<String> listSave) async {
+  Future<File> saveItems(List<SplitBillsItem> listSave) async {
     var listMap = List<Map<String, dynamic>>();
     listSave.forEach((data) {
-      //listMap.add(data.toJson());
+      listMap.add(data.toJson());
     });
 
     String dataJson = json.encode(listMap);
