@@ -36,10 +36,6 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
       ).first.value += pb.value;
     });
 
-    _peopleList.forEach((p) {
-      print("${p.name} :: ${p.value}");
-    });
-
     var itemBill = SplitBillsItem(_peopleSplit.name, _peopleSplit.value);
     _itemList.add(itemBill);
 

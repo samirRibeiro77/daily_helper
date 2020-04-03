@@ -32,7 +32,6 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
       mapJson.forEach((jsonData) {
         var people = SplitBillsPeople.fromJson(jsonData);
         setState(() {
-          print("${people.name} => ${people.value}");
           _peopleList.add(people);
         });
       });
@@ -49,21 +48,11 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
   Widget build(BuildContext context) {
     return Card(
       child: ExpansionTile(
+        onExpansionChanged: (val) {
+          _load();
+        },
         title: Text(AppLocalizations.of(context).translate(StringKey.PEOPLE)),
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox(width: 1.0),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: GestureDetector(
-                  onTap: _load,
-                  child: Icon(Icons.sync, color: SplitBillsColors.PRIMARY_COLOR),
-                ),
-              )
-            ],
-          ),
           Padding(
             padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
             child: Row(
@@ -74,7 +63,7 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
                     controller: _nameController
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(left: 10.0),
                   child: GestureDetector(
                     onTap: _addPeople,
                     child: Icon(Icons.add, color: SplitBillsColors.PRIMARY_COLOR),
@@ -87,12 +76,15 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
             padding: EdgeInsets.all(10.0),
             child: Column(
               children: _peopleList.map((p) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(p.name),
-                    Text(p.value.toStringAsFixed(2))
-                  ],
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(p.name),
+                      Text(p.value.toStringAsFixed(2))
+                    ],
+                  ),
                 );
               }).toList(),
             ),
