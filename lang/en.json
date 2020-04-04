@@ -28,5 +28,8 @@
   "people": "People",
   "name": "Name",
   "item": "Item",
-  "total": "Total"
+  "total": "Total",
+  "discount": "Discount",
+  "taxes": "Taxes",
+  "clear_exit": "Clear and exit"
 }
