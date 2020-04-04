@@ -21,8 +21,11 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
   final PageController _pageController;
   final _database = SplitBillsDatabase();
   var _discountController = TextEditingController();
+  var _taxesController = TextEditingController();
   List<SplitBillsItem> _itemList = [];
   List<SplitBillsPeople> _peopleList = [];
+  
+  var _totalPrice = 0.0;
 
   _SplitBillsTotalCardState(this._pageController);
 
@@ -43,11 +46,11 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
         var item = SplitBillsItem.fromJson(jsonData);
         setState(() {
           _itemList.add(item);
+          _totalPrice += double.parse(item.value);
         });
       });
     });
   }
-
 
   @override
   void initState() {
@@ -62,16 +65,61 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
         title: Text(AppLocalizations.of(context).translate(StringKey.TOTAL)),
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 5.0),
+            child: Column(
               children: <Widget>[
-                SplitBillsTextField(
-                  label: AppLocalizations.of(context).translate(StringKey.NAME),
-                  controller: _discountController,
-                  function: (){},
-                  isNumber: true,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SplitBillsTextField(
+                      label: AppLocalizations.of(context).translate(StringKey.TAXES),
+                      controller: _taxesController,
+                      function: (){},
+                      isNumber: true,
+                    ),
+                  ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    SplitBillsTextField(
+                      label: AppLocalizations.of(context).translate(StringKey.DISCOUNT),
+                      controller: _discountController,
+                      function: (){},
+                      isNumber: true,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Divider(),
+          Divider(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context).translate(StringKey.TAXES)),
+                    Text(_taxesController.text)
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context).translate(StringKey.DISCOUNT)),
+                    Text(_discountController.text)
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context).translate(StringKey.TOTAL)),
+                    Text(_totalPrice.toStringAsFixed(2))
+                  ],
+                )
               ],
             ),
           ),
@@ -81,7 +129,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
               children: <Widget>[
                 Expanded(
                   child: RaisedButton(
-                    child: Text("Clear and exit"),
+                    child: Text(AppLocalizations.of(context).translate(StringKey.CLEAR_EXIT)),
                     color: SplitBillsColors.PRIMARY_COLOR,
                     textColor: Colors.white,
                     onPressed: () {
