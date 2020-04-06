@@ -35,5 +35,6 @@
   "total_missing": "Total faltante",
   "discount": "Desconto",
   "taxes": "Taxas",
-  "clear_exit": "Limpar e sair"
+  "clear_exit": "Limpar e sair",
+  "idea_by": "Ideia por: %s"
 }

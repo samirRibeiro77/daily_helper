@@ -35,5 +35,6 @@
   "total_missing": "Total missing",
   "discount": "Discount",
   "taxes": "Taxes",
-  "clear_exit": "Clear and exit"
+  "clear_exit": "Clear and exit",
+  "idea_by": "Idea by: %s"
 }

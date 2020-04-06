@@ -36,4 +36,5 @@ class StringKey {
   static const String DISCOUNT = 'discount';
   static const String TAXES = 'taxes';
   static const String CLEAR_EXIT = 'clear_exit';
+  static const String IDEA_BY = 'idea_by';
 }

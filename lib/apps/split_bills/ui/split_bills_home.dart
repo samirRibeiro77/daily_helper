@@ -1,6 +1,8 @@
+import 'package:daily_helper/app_localizations.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_item_card.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_people_card.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_total_card.dart';
+import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 
 class SplitBillsHome extends StatefulWidget {
@@ -24,7 +26,14 @@ class _SplitBillsHomeState extends State<SplitBillsHome> {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.only(bottom: 10.0),
-          child: Center(child: Text("Powered by: Gabriela Almeida")),
+          child: Center(
+              child: Text(
+                  AppLocalizations
+                      .of(context)
+                      .translate(StringKey.IDEA_BY)
+                      .replaceAll('%s', 'Gabriela Almeida')
+              )
+          ),
         ),
         SplitBillsPeopleCard(),
         SizedBox(height: 20.0),
