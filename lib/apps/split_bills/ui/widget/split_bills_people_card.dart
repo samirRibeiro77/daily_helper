@@ -19,9 +19,11 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
   var _bill = SplitBillsBill.createNew();
 
   void _addPeople() {
-    _bill.addPerson(SplitBillsPerson(_nameController.text));
-    _database.save(_bill);
-    _nameController.text = "";
+    if(_nameController.text.isNotEmpty) {
+      _bill.addPerson(SplitBillsPerson(_nameController.text));
+      _database.save(_bill);
+      _nameController.text = "";
+    }
   }
 
   void _load() async {
@@ -77,15 +79,11 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
           Padding(
             padding: EdgeInsets.all(10.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: _bill.people.map((p) {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(p.name)
-                    ],
-                  ),
+                  child: Text(p.name),
                 );
               }).toList(),
             ),

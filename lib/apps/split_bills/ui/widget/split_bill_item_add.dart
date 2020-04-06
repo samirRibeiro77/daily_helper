@@ -61,8 +61,10 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
     _load();
   }
 
-  bool _isTextMissing() {
-    return _nameController.text.isEmpty && _valueController.text.isEmpty;
+  bool _canSave() {
+    return _nameController.text.isNotEmpty
+        && _valueController.text.isNotEmpty
+        && _peopleToSplit > 0;
   }
 
   void _saveItem() {
@@ -135,7 +137,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
               children: <Widget>[
                 Expanded(
                   child: RaisedButton(
-                    onPressed: _isTextMissing() ? null : _saveItem,
+                    onPressed: _canSave() ? _saveItem : null,
                     child: Text(AppLocalizations.of(context).translate(StringKey.SAVE)),
                     color: SplitBillsColors.PRIMARY_COLOR,
                     textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
