@@ -29,6 +29,8 @@ class StringKey {
   static const String NAME = 'name';
   static const String ITEM = 'item';
   static const String TOTAL = 'total';
+  static const String TOTAL_PAID = 'total_paid';
+  static const String TOTAL_MISSING = 'total_missing';
   static const String DISCOUNT = 'discount';
   static const String TAXES = 'taxes';
   static const String CLEAR_EXIT = 'clear_exit';

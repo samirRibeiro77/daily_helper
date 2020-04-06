@@ -81,8 +81,7 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(p.name),
-                      Text(p.value.toStringAsFixed(2))
+                      Text(p.name)
                     ],
                   ),
                 );

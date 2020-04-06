@@ -25,11 +25,17 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
   List<SplitBillsItem> _itemList = [];
   List<SplitBillsPeople> _peopleList = [];
   
-  var _totalPrice = 0.0;
+  var _totalMissing = 0.0;
+  var _totalPaid = 0.0;
+  var _taxes = 0.0;
+  var _discount = 0.0;
 
   _SplitBillsTotalCardState(this._pageController);
 
   void _load() {
+    _itemList = [];
+    _peopleList = [];
+
     _database.readData(SplitBillsDatabase.PEOPLE_FILE).then((data) {
       List mapJson = json.decode(data);
       mapJson.forEach((jsonData) {
@@ -46,10 +52,50 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
         var item = SplitBillsItem.fromJson(jsonData);
         setState(() {
           _itemList.add(item);
-          _totalPrice += double.parse(item.value);
+          _getTotalPrice();
         });
       });
     });
+  }
+
+  void _changeDiscount() {
+    _discount = 0.0;
+    if (!_discountController.text.isEmpty) {
+      _discount = double.parse(_discountController.text);
+    }
+
+    _peopleList.forEach((p) {
+      p.discount = _discount;
+    });
+
+    setState(() {
+      _getTotalPrice();
+      _database.savePeople(_peopleList);
+    });
+  }
+
+  void _changeTaxes() {
+    _taxes = 0.0;
+    if (!_taxesController.text.isEmpty) {
+      _taxes = double.parse(_taxesController.text);
+    }
+
+    _peopleList.forEach((p) {
+      p.taxes = _taxes;
+    });
+
+    setState(() {
+      _getTotalPrice();
+      _database.savePeople(_peopleList);
+    });
+  }
+
+  void _getTotalPrice() {
+    _totalMissing = 0.0;
+    _itemList.forEach((i) {
+      _totalMissing += double.parse(i.value);
+    });
+    _totalMissing = _totalMissing - ((_totalMissing * _discount) / 100) + ((_totalMissing * _taxes) / 100);
   }
 
   @override
@@ -62,6 +108,9 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
   Widget build(BuildContext context) {
     return Card(
       child: ExpansionTile(
+        onExpansionChanged: (val) {
+          _load();
+        },
         title: Text(AppLocalizations.of(context).translate(StringKey.TOTAL)),
         children: <Widget>[
           Padding(
@@ -74,7 +123,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                     SplitBillsTextField(
                       label: AppLocalizations.of(context).translate(StringKey.TAXES),
                       controller: _taxesController,
-                      function: (){},
+                      function: _changeTaxes,
                       isNumber: true,
                     ),
                   ],
@@ -85,7 +134,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                     SplitBillsTextField(
                       label: AppLocalizations.of(context).translate(StringKey.DISCOUNT),
                       controller: _discountController,
-                      function: (){},
+                      function: _changeDiscount,
                       isNumber: true,
                     ),
                   ],
@@ -94,6 +143,37 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
             ),
           ),
           Divider(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Column(
+              children: _peopleList.map((p) {
+                return Row(
+                  children: <Widget>[
+                    Checkbox(
+                      value: p.paid,
+                      onChanged: (value){
+                        setState(() {
+                          p.paid = value;
+                          if (value) {
+                            _totalPaid += p.totalValue;
+                            _totalMissing -= p.totalValue;
+                          }
+                          else {
+                            _totalPaid -= p.totalValue;
+                            _totalMissing += p.totalValue;
+                          }
+                        });
+                      },
+                    ),
+                    SizedBox(width: 10.0),
+                    Text(p.name),
+                    Expanded(child: SizedBox()),
+                    Text(p.totalValue.toStringAsFixed(2))
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
           Divider(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
@@ -103,21 +183,36 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(AppLocalizations.of(context).translate(StringKey.TAXES)),
-                    Text(_taxesController.text)
+                    Text('${_taxesController.text}%')
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(AppLocalizations.of(context).translate(StringKey.DISCOUNT)),
-                    Text(_discountController.text)
+                    Text('${_discountController.text}%')
+                  ],
+                )
+              ],
+            ),
+          ),
+          Divider(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(AppLocalizations.of(context).translate(StringKey.TOTAL_PAID)),
+                    Text(_totalPaid.toStringAsFixed(2))
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(AppLocalizations.of(context).translate(StringKey.TOTAL)),
-                    Text(_totalPrice.toStringAsFixed(2))
+                    Text(AppLocalizations.of(context).translate(StringKey.TOTAL_MISSING)),
+                    Text(_totalMissing.toStringAsFixed(2))
                   ],
                 )
               ],

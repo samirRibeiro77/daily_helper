@@ -29,6 +29,8 @@
   "name": "Name",
   "item": "Item",
   "total": "Total",
+  "total_paid": "Total paid",
+  "total_missing": "Total missing",
   "discount": "Discount",
   "taxes": "Taxes",
   "clear_exit": "Clear and exit"

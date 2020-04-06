@@ -8,8 +8,12 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 class SplitBillsAddItem extends StatefulWidget {
+  Function _callback;
+
+  SplitBillsAddItem(this._callback);
+
   @override
-  _SplitBillsAddItemState createState() => _SplitBillsAddItemState();
+  _SplitBillsAddItemState createState() => _SplitBillsAddItemState(_callback);
 }
 
 class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
@@ -19,6 +23,10 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
   var _valueController = TextEditingController();
   List<SplitBillsPeople> _peopleList = [];
   List<SplitBillsItem> _itemList = [];
+
+  Function _callback;
+
+  _SplitBillsAddItemState(this._callback);
 
   void _textChange() {
     _peopleSplit.name = _nameController.text;
@@ -41,10 +49,15 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
 
     _database.saveItems(_itemList);
     _database.savePeople(_peopleList);
+
+    _callback();
     Navigator.of(context).pop();
   }
 
   void _load() {
+    _peopleList = [];
+    _itemList = [];
+
     _database.readData(SplitBillsDatabase.PEOPLE_FILE).then((data) {
       List mapJson = json.decode(data);
       mapJson.forEach((jsonData) {

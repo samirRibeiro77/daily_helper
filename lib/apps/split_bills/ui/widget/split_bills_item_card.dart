@@ -57,7 +57,7 @@ class _SplitBillsItemCardState extends State<SplitBillsItemCard> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SplitBillsAddItem()
+                                    builder: (context) => SplitBillsAddItem(_load)
                                 )
                             );
                           },
