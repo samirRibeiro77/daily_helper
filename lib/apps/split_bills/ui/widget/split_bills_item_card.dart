@@ -1,7 +1,9 @@
+import 'package:daily_helper/app_localizations.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_bill.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_database.dart';
 import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bill_item_add.dart';
+import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -43,7 +45,7 @@ class _SplitBillsItemCardState extends State<SplitBillsItemCard> {
   Widget build(BuildContext context) {
     return Card(
         child: ExpansionTile(
-          title: Text("Items"),
+          title: Text(AppLocalizations.of(context).translate(StringKey.ITEMS)),
           children: <Widget>[
             Padding(
               padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),
@@ -86,7 +88,14 @@ class _SplitBillsItemCardState extends State<SplitBillsItemCard> {
                         Padding(
                           padding: EdgeInsets.only(left: 10.0),
                           child: GestureDetector(
-                            onTap: (){},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SplitBillsAddItem(editing: i.name)
+                                  )
+                              );
+                            },
                             child: Icon(Icons.more_vert),
                           ),
                         )

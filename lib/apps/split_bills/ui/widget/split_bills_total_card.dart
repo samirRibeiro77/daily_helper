@@ -134,8 +134,6 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                     listItem: _bill.items
                 );
 
-                print('Person ${p.name} // Total to pay: $total');
-
                 return Row(
                   children: <Widget>[
                     Checkbox(

@@ -1,24 +1,24 @@
 class SplitBillsItem {
   String _name;
   double _value;
-  int _peopleToSplit;
+  int peopleToSplit;
 
-  SplitBillsItem(this._name, this._value, this._peopleToSplit);
+  SplitBillsItem(this._name, this._value, this.peopleToSplit);
 
   SplitBillsItem.fromJson(Map<String, dynamic> json) {
     this._name = json["name"].toString();
     this._value = double.parse(json["value"].toString());
-    this._peopleToSplit = int.parse(json["peopleToSplit"].toString());
+    this.peopleToSplit = int.parse(json["peopleToSplit"].toString());
   }
 
   Map<String, dynamic> toJson() => {
     "name": _name,
     "value": _value,
-    "peopleToSplit": _peopleToSplit
+    "peopleToSplit": peopleToSplit
   };
 
 
   String get name => _name;
-  double get splitValue => _value / _peopleToSplit;
+  double get splitValue => _value / peopleToSplit;
   double get value => _value;
 }

@@ -22,6 +22,10 @@ class _SplitBillsHomeState extends State<SplitBillsHome> {
     return ListView(
       padding: EdgeInsets.all(10.0),
       children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(bottom: 10.0),
+          child: Center(child: Text("Powered by: Gabriela Almeida")),
+        ),
         SplitBillsPeopleCard(),
         SizedBox(height: 20.0),
         SplitBillsItemCard(),
