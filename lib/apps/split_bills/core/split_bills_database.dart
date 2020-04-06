@@ -1,16 +1,30 @@
 import 'dart:io';
-import 'dart:convert';
-import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
-import 'package:daily_helper/apps/split_bills/core/split_bills_people.dart';
+import 'package:daily_helper/apps/split_bills/core/split_bills_bill.dart';
 import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
 
 class SplitBillsDatabase {
-  static const String PEOPLE_FILE = "people.json";
-  static const String ITEMS_FILE = "item.json";
+  List<Function> _functions;
 
-  Future<File> _getFile(String fileName) async {
+  SplitBillsDatabase._privateConstructor() {
+    _functions = [];
+  }
+
+  static final SplitBillsDatabase instance = SplitBillsDatabase._privateConstructor();
+
+  void addListener(Function f) {
+    _functions.add(f);
+  }
+
+  void _execListeners() {
+    _functions.forEach((f) {
+      f();
+    });
+  }
+
+  Future<File> _getFile() async {
     final directory = await getApplicationDocumentsDirectory();
-    var file = File("${directory.path}/$fileName");
+    var file = File("${directory.path}/split_bills.json");
     var fileExists = await file.exists();
     if (!fileExists) {
       await file.create(recursive: true);
@@ -18,42 +32,37 @@ class SplitBillsDatabase {
     return file;
   }
 
-  Future<String> readData(String fileName) async {
+  Future<String> readData() async {
     try {
-      var data = await _getFile(fileName);
+      var data = await _getFile();
       return data.readAsString();
     } catch (e) {
       return null;
     }
   }
 
-  Future<File> savePeople(List<SplitBillsPeople> listSave) async {
-    var listMap = List<Map<String, dynamic>>();
-    listSave.forEach((data) {
-      listMap.add(data.toJson());
-    });
-
-    String dataJson = json.encode(listMap);
-    final file = await _getFile(PEOPLE_FILE);
-    return file.writeAsString(dataJson);
+  Future<bool> existBill() async {
+    try {
+      var data = await _getFile();
+      return data.exists();
+    }
+    catch (e) {
+      return false;
+    }
   }
 
-  Future<File> saveItems(List<SplitBillsItem> listSave) async {
-    var listMap = List<Map<String, dynamic>>();
-    listSave.forEach((data) {
-      listMap.add(data.toJson());
-    });
+  Future<File> save(SplitBillsBill bill) async {
+    String dataJson = json.encode(bill.toJson());
+    var file = await _getFile();
+    file = await file.writeAsString(dataJson);
 
-    String dataJson = json.encode(listMap);
-    final file = await _getFile(ITEMS_FILE);
-    return file.writeAsString(dataJson);
+    _execListeners();
+
+    return file;
   }
 
   Future<Null> clearDatabase() async {
-    var peopleFile = await _getFile(PEOPLE_FILE);
+    var peopleFile = await _getFile();
     peopleFile.delete(recursive: true);
-
-    var itemFile = await _getFile(ITEMS_FILE);
-    itemFile.delete(recursive: true);
   }
 }

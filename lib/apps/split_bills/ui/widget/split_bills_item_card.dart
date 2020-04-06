@@ -1,5 +1,5 @@
+import 'package:daily_helper/apps/split_bills/core/split_bills_bill.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_database.dart';
-import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
 import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bill_item_add.dart';
 import 'package:flutter/material.dart';
@@ -11,35 +11,38 @@ class SplitBillsItemCard extends StatefulWidget {
 }
 
 class _SplitBillsItemCardState extends State<SplitBillsItemCard> {
-  final _database = SplitBillsDatabase();
-  List<SplitBillsItem> _itemList = [];
+  final _database = SplitBillsDatabase.instance;
+  var _bill = SplitBillsBill.createNew();
 
-  void _load() {
-    _itemList = [];
-    _database.readData(SplitBillsDatabase.ITEMS_FILE).then((data) {
-      List mapJson = json.decode(data);
-      mapJson.forEach((jsonData) {
-        var item = SplitBillsItem.fromJson(jsonData);
+  void _load() async {
+    _bill = SplitBillsBill.createNew();
+    var existBill = await _database.existBill();
+
+    if(existBill) {
+      _database.readData().then((data) {
         setState(() {
-          _itemList.add(item);
+          _bill = SplitBillsBill.fromJson(json.decode(data));
         });
       });
-    });
+    }
+    else {
+      setState(() {
+        _bill = SplitBillsBill.createNew();
+      });
+    }
   }
 
   @override
   void initState() {
     super.initState();
     _load();
+    _database.addListener(_load);
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
         child: ExpansionTile(
-          onExpansionChanged: (val) {
-            _load();
-          },
           title: Text("Items"),
           children: <Widget>[
             Padding(
@@ -57,7 +60,7 @@ class _SplitBillsItemCardState extends State<SplitBillsItemCard> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SplitBillsAddItem(_load)
+                                    builder: (context) => SplitBillsAddItem()
                                 )
                             );
                           },
@@ -72,14 +75,14 @@ class _SplitBillsItemCardState extends State<SplitBillsItemCard> {
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Column(
-                children: _itemList.map((p) {
+                children: _bill.items.map((i) {
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: Row(
                       children: <Widget>[
-                        Text(p.name),
+                        Text(i.name),
                         Expanded(child: SizedBox()),
-                        Text(p.value),
+                        Text(i.value.toStringAsFixed(2)),
                         Padding(
                           padding: EdgeInsets.only(left: 10.0),
                           child: GestureDetector(

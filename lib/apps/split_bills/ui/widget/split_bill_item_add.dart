@@ -1,36 +1,45 @@
+import 'package:daily_helper/apps/split_bills/core/split_bills_bill.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_database.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
-import 'package:daily_helper/apps/split_bills/core/split_bills_people.dart';
-import 'package:daily_helper/apps/split_bills/core/split_bills_people_item.dart';
 import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_textfield.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
 class SplitBillsAddItem extends StatefulWidget {
-  Function _callback;
-
-  SplitBillsAddItem(this._callback);
-
   @override
-  _SplitBillsAddItemState createState() => _SplitBillsAddItemState(_callback);
+  _SplitBillsAddItemState createState() => _SplitBillsAddItemState();
 }
 
 class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
-  final _database = SplitBillsDatabase();
-  var _peopleSplit = SplitBillsPeopleItem("", "", []);
+  final _database = SplitBillsDatabase.instance;
   var _nameController = TextEditingController();
   var _valueController = TextEditingController();
-  List<SplitBillsPeople> _peopleList = [];
-  List<SplitBillsItem> _itemList = [];
+  var _bill = SplitBillsBill.createNew();
+  var _peopleToSplit = 0;
 
-  Function _callback;
+  void _load() async {
+    _bill = SplitBillsBill.createNew();
+    var existBill = await _database.existBill();
 
-  _SplitBillsAddItemState(this._callback);
+    if(existBill) {
+      _database.readData().then((data) {
+        setState(() {
+          _bill = SplitBillsBill.fromJson(json.decode(data));
+        });
+      });
+    }
+    else {
+      setState(() {
+        _bill = SplitBillsBill.createNew();
+      });
+    }
+  }
 
-  void _textChange() {
-    _peopleSplit.name = _nameController.text;
-    _peopleSplit.value = _valueController.text;
+  @override
+  void initState() {
+    super.initState();
+    _load();
   }
 
   bool _isTextMissing() {
@@ -38,51 +47,15 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
   }
 
   void _saveItem() {
-    _peopleSplit.save().forEach((pb) {
-      _peopleList.where(
-              (p) => p.name == pb.name
-      ).first.value += pb.value;
-    });
+    var itemBill = SplitBillsItem(
+      _nameController.text,
+      double.parse(_valueController.text),
+      _peopleToSplit
+    );
 
-    var itemBill = SplitBillsItem(_peopleSplit.name, _peopleSplit.value);
-    _itemList.add(itemBill);
-
-    _database.saveItems(_itemList);
-    _database.savePeople(_peopleList);
-
-    _callback();
+    _bill.items.add(itemBill);
+    _database.save(_bill);
     Navigator.of(context).pop();
-  }
-
-  void _load() {
-    _peopleList = [];
-    _itemList = [];
-
-    _database.readData(SplitBillsDatabase.PEOPLE_FILE).then((data) {
-      List mapJson = json.decode(data);
-      mapJson.forEach((jsonData) {
-        var people = SplitBillsPeople.fromJson(jsonData);
-        setState(() {
-          _peopleList.add(people);
-        });
-      });
-    });
-
-    _database.readData(SplitBillsDatabase.ITEMS_FILE).then((data) {
-      List mapJson = json.decode(data);
-      mapJson.forEach((jsonData) {
-        var item = SplitBillsItem.fromJson(jsonData);
-        setState(() {
-          _itemList.add(item);
-        });
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
   }
 
   @override
@@ -100,36 +73,32 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
             SplitBillsTextField(
               label: "Name",
               controller: _nameController,
-              function: _textChange,
             ),
             SplitBillsTextField(
               label: "Price",
               controller: _valueController,
-              function: _textChange,
               isNumber: true,
             ),
             SingleChildScrollView(
               child: Column(
-                children: _peopleList.map((p) {
+                children: _bill.people.map((p) {
                   return Row(
                     children: <Widget>[
                       Checkbox(
-                        value: _peopleSplit.people != null
-                            ? _peopleSplit.people.contains(p.name)
-                            : false,
+                        value: p.items.contains(_nameController.text),
                         onChanged: (value){
                           setState(() {
-                            if (_peopleSplit.people == null) {
-                              _peopleSplit.people = [];
-                            }
-
                             if(value) {
-                              _peopleSplit.people.add(p.name);
+                              p.items.add(_nameController.text);
+                              _peopleToSplit++;
                             }
                             else {
-                              _peopleSplit.people.remove(p.name);
+                              p.items.remove(_nameController.text);
+                              _peopleToSplit--;
                             }
                           });
+
+                          print('Bill: ${_bill.toJson()}');
                         },
                       ),
                       SizedBox(width: 15.0),
@@ -143,7 +112,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
               children: <Widget>[
                 Expanded(
                   child: RaisedButton(
-                    onPressed: _saveItem,
+                    onPressed: _isTextMissing() ? null : _saveItem,
                     child: Text("Save"),
                     color: SplitBillsColors.PRIMARY_COLOR,
                     textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
