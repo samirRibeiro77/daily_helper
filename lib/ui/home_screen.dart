@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
             backgroundColor: Colors.black,
           ),
-          body: Home(),
+          body: Home(_pageControle),
           backgroundColor: Colors.grey[900],
         ),
         Scaffold(
