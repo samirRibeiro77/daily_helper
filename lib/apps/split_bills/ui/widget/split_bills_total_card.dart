@@ -104,7 +104,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                     SplitBillsTextField(
                       label: AppLocalizations.of(context).translate(StringKey.TAXES),
                       controller: _taxesController,
-                      function: _changeTaxes,
+                      onChangeFunction: _changeTaxes,
                       isNumber: true,
                     ),
                   ],
@@ -115,7 +115,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                     SplitBillsTextField(
                       label: AppLocalizations.of(context).translate(StringKey.DISCOUNT),
                       controller: _discountController,
-                      function: _changeDiscount,
+                      onChangeFunction: _changeDiscount,
                       isNumber: true,
                     ),
                   ],

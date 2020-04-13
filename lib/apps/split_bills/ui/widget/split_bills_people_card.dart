@@ -63,8 +63,9 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 SplitBillsTextField(
-                    label: AppLocalizations.of(context).translate(StringKey.NAME),
-                    controller: _nameController
+                  label: AppLocalizations.of(context).translate(StringKey.NAME),
+                  controller: _nameController,
+                  onSubmitFunction: _addPeople,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.0),
