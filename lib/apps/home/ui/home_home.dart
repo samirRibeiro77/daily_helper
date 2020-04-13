@@ -25,6 +25,8 @@ class _HomeHomeState extends State<HomeHome> {
     return GridView.builder(
         padding: EdgeInsets.all(10.0),
         itemCount: appList.length,
+        physics: ScrollPhysics(),
+        shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, crossAxisSpacing: 10.0, mainAxisSpacing: 10.0),
         itemBuilder: (context, index) {
@@ -35,10 +37,10 @@ class _HomeHomeState extends State<HomeHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 40.0),
+          padding: EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 30.0),
           child: Text(
             AppLocalizations.of(context).translate(StringKey.APP_NAME),
             textAlign: TextAlign.center,
