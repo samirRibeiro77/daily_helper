@@ -40,50 +40,70 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Home(_pageControle),
           backgroundColor: Colors.grey[900],
         ),
-        Scaffold(
-            drawer: CustomDrawer(_pageControle),
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate(StringKey.SPLIT_BILLS)),
-              centerTitle: true,
-              backgroundColor: SplitBillsColors.PRIMARY_COLOR,
-            ),
-            body: SplitBills(_pageControle)
+        Theme(
+          data: ThemeData(
+            primarySwatch: SplitBillsColors.PRIMARY_COLOR,
+          ),
+          child: Scaffold(
+              drawer: CustomDrawer(_pageControle),
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context).translate(StringKey.SPLIT_BILLS)),
+                centerTitle: true,
+              ),
+              body: SplitBills(_pageControle)
+          ),
         ),
-        Scaffold(
-            drawer: CustomDrawer(_pageControle),
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_FUEL)),
-              centerTitle: true,
-              backgroundColor: WhichFuelColors.PRIMARY_COLOR,
-            ),
-            body: WhichFuel()
+        Theme(
+          data: ThemeData(
+            primarySwatch: WhichFuelColors.PRIMARY_COLOR
+          ),
+          child: Scaffold(
+              drawer: CustomDrawer(_pageControle),
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_FUEL)),
+                centerTitle: true,
+              ),
+              body: WhichFuel()
+          ),
         ),
-        Scaffold(
-            drawer: CustomDrawer(_pageControle),
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_DRINK)),
-              centerTitle: true,
-              backgroundColor: WhichDrinkColors.PRIMARY_COLOR,
-            ),
-            body: WhichDrink()
+        Theme(
+          data: ThemeData(
+            primarySwatch: WhichDrinkColors.PRIMARY_COLOR
+          ),
+          child: Scaffold(
+              drawer: CustomDrawer(_pageControle),
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_DRINK)),
+                centerTitle: true,
+              ),
+              body: WhichDrink()
+          ),
         ),
-        Scaffold(
-            drawer: CustomDrawer(_pageControle),
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_FOOD)),
-              centerTitle: true,
-              backgroundColor: WhichFoodColors.PRIMARY_COLOR,
-            ),
-            body: WhichFood()
+        Theme(
+          data: ThemeData(
+            primarySwatch: WhichFoodColors.PRIMARY_COLOR
+          ),
+          child: Scaffold(
+              drawer: CustomDrawer(_pageControle),
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context).translate(StringKey.WHICH_FOOD)),
+                centerTitle: true,
+              ),
+              body: WhichFood()
+          ),
         ),
-        Scaffold(
-            drawer: CustomDrawer(_pageControle),
-            appBar: AppBar(
-              title: Text(AppLocalizations.of(context).translate(StringKey.CURRENCY_CONVERTER)),
-              centerTitle: true,
-              backgroundColor: CurrencyConverterColors.PRIMARY_COLOR,
-            ),
-            body: CurrencyConverter()
+        Theme(
+          data: ThemeData(
+            primarySwatch: CurrencyConverterColors.PRIMARY_COLOR
+          ),
+          child: Scaffold(
+              drawer: CustomDrawer(_pageControle),
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context).translate(StringKey.CURRENCY_CONVERTER)),
+                centerTitle: true,
+              ),
+              body: CurrencyConverter()
+          ),
         ),
         Scaffold(
           drawer: CustomDrawer(_pageControle),
