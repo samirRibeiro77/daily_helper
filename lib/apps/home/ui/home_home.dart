@@ -1,7 +1,7 @@
 import 'package:daily_helper/app_localizations.dart';
+import 'package:daily_helper/apps/home/core/app_list.dart';
 import 'package:daily_helper/apps/home/ui/home_colors.dart';
 import 'package:daily_helper/ui/widget/apps_tile.dart';
-import 'package:daily_helper/util/apps_enum.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +19,23 @@ class _HomeHomeState extends State<HomeHome> {
 
   _HomeHomeState(this._pageControler);
 
+  Widget _createGrid() {
+    var appList = AppList.APPS;
+
+    return GridView.builder(
+        padding: EdgeInsets.all(10.0),
+        itemCount: appList.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, crossAxisSpacing: 10.0, mainAxisSpacing: 10.0),
+        itemBuilder: (context, index) {
+          var app = appList[index];
+          return AppsTile(app["app"], _pageControler, app["index"]);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: <Widget>[
         Padding(
           padding: EdgeInsets.only(top: 40.0),
@@ -35,19 +49,9 @@ class _HomeHomeState extends State<HomeHome> {
             ),
           ),
         ),
-        SizedBox(height: 50.0),
-        SingleChildScrollView(
-          padding: EdgeInsets.all(15.0),
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: <Widget>[
-              AppsTile(AppsEnum.split_bills, _pageControler, 1),
-              AppsTile(AppsEnum.which_fuel, _pageControler, 2),
-              AppsTile(AppsEnum.which_drink, _pageControler, 3),
-              AppsTile(AppsEnum.which_food, _pageControler, 4),
-              AppsTile(AppsEnum.currency_converter, _pageControler, 5),
-            ],
-          ),
+        SizedBox(height: 10.0),
+        Expanded(
+          child: _createGrid(),
         )
       ],
     );

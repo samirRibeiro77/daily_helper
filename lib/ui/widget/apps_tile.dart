@@ -42,11 +42,14 @@ class AppsTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: (){ _pageController.jumpToPage(_page); },
-      child: Card(
-        color: HomeColors.CARD_BACKGROUND_COLOR,
-        child: Padding(
-          padding: EdgeInsets.all(5.0),
-          child: Icon(_getIcon(), size: 100.0, color: _getColor()),
+      child: Container(
+        height: 300.0,
+        child: Card(
+          color: HomeColors.CARD_BACKGROUND_COLOR,
+          child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Icon(_getIcon(), size: 100.0, color: _getColor()),
+          ),
         ),
       ),
     );
