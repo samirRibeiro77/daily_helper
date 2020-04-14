@@ -4,23 +4,10 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 
 class SplitBillsDatabase {
-  List<Function> _functions;
 
-  SplitBillsDatabase._privateConstructor() {
-    _functions = [];
-  }
+  SplitBillsDatabase._privateConstructor();
 
   static final SplitBillsDatabase instance = SplitBillsDatabase._privateConstructor();
-
-  void addListener(Function f) {
-    _functions.add(f);
-  }
-
-  void _execListeners() {
-    _functions.forEach((f) {
-      f();
-    });
-  }
 
   Future<File> _getFile() async {
     final directory = await getApplicationDocumentsDirectory();
@@ -55,9 +42,6 @@ class SplitBillsDatabase {
     String dataJson = json.encode(bill.toJson());
     var file = await _getFile();
     file = await file.writeAsString(dataJson);
-
-    _execListeners();
-
     return file;
   }
 
