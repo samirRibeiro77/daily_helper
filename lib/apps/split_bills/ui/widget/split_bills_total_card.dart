@@ -43,10 +43,23 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
 
   void _getTotalPrice(SplitBillModel model) {
     _totalMissing = 0.0;
+    _totalPaid = 0.0;
+
     model.bill.items.forEach((i) {
       _totalMissing += i.value;
     });
-    _totalMissing = _totalMissing - (_totalMissing * model.bill.discount) + (_totalMissing * model.bill.taxes);
+
+    model.bill.people.forEach((p) {
+      var total = p.totalPrice(
+          discount: model.bill.discount,
+          taxes: model.bill.taxes,
+          listItem: model.bill.items
+      );
+
+      _totalPaid = p.paid ? _totalPaid + total : _totalPaid;
+    });
+
+    _totalMissing = (_totalMissing - (_totalMissing * model.bill.discount) + (_totalMissing * model.bill.taxes)) - _totalPaid;
   }
 
   @override
@@ -113,14 +126,6 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                           onChanged: (value){
                             setState(() {
                               p.paid = value;
-                              if (value) {
-                                _totalPaid += total;
-                                _totalMissing -= total;
-                              }
-                              else {
-                                _totalPaid -= total;
-                                _totalMissing += total;
-                              }
                             });
                           },
                         ),

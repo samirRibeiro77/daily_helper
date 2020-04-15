@@ -18,7 +18,7 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
   void _addPeople(SplitBillModel model) {
     if(_nameController.text.isNotEmpty) {
       model.addPerson(SplitBillsPerson(_nameController.text));
-      _nameController.text = "";
+      _nameController.clear();
     }
   }
 

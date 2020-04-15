@@ -59,75 +59,86 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate(StringKey.ADD_EDIT_ITEM)),
-        centerTitle: true,
-        backgroundColor: SplitBillsColors.PRIMARY_COLOR
+    return Theme(
+      data: ThemeData(
+        primarySwatch: SplitBillsColors.PRIMARY_COLOR
       ),
-      body: ScopedModelDescendant<SplitBillModel>(
-          builder: (context, child, model) {
-            if (model.isLoading) {
-              return Center(child: CircularProgressIndicator());
-            }
+      child: Scaffold(
+          appBar: AppBar(
+              title: Text(AppLocalizations.of(context).translate(StringKey.ADD_EDIT_ITEM)),
+              centerTitle: true
+          ),
+          body: ScopedModelDescendant<SplitBillModel>(
+              builder: (context, child, model) {
+                if (model.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-            _loadEdit(model);
-            return ListView(
-              padding: EdgeInsets.all(10.0),
-              children: [
-                SplitBillsTextField(
-                  label: AppLocalizations.of(context).translate(StringKey.NAME),
-                  controller: _nameController,
-                ),
-                SplitBillsTextField(
-                  label: AppLocalizations.of(context).translate(StringKey.PRICE),
-                  controller: _valueController,
-                  isNumber: true,
-                ),
-                Column(
-                  children: model.bill.people.map((p) {
-                    return Row(
-                      children: <Widget>[
-                        Checkbox(
-                          value: p.items.contains(_nameController.text),
-                          activeColor: SplitBillsColors.PRIMARY_COLOR,
-                          onChanged: (value){
-                            setState(() {
-                              if(value) {
-                                p.items.add(_nameController.text);
-                                _peopleToSplit++;
-                              }
-                              else {
-                                p.items.remove(_nameController.text);
-                                _peopleToSplit--;
-                              }
-                            });
-                          },
-                        ),
-                        SizedBox(width: 15.0),
-                        Text(p.name)
+                _loadEdit(model);
+                return ListView(
+                  padding: EdgeInsets.all(10.0),
+                  children: [
+                    Row(
+                      children: [
+                        SplitBillsTextField(
+                          label: AppLocalizations.of(context).translate(StringKey.NAME),
+                          controller: _nameController,
+                        )
                       ],
-                    );
-                  }).toList(),
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: RaisedButton(
-                        onPressed: _canSave()
-                            ? (){_saveItem(model);}
-                            : null,
-                        child: Text(AppLocalizations.of(context).translate(StringKey.SAVE)),
-                        color: SplitBillsColors.PRIMARY_COLOR,
-                        textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
-                      ),
+                    ),
+                    Row(
+                      children: [
+                        SplitBillsTextField(
+                          label: AppLocalizations.of(context).translate(StringKey.PRICE),
+                          controller: _valueController,
+                          isNumber: true,
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: model.bill.people.map((p) {
+                        return Row(
+                          children: <Widget>[
+                            Checkbox(
+                              value: p.items.contains(_nameController.text),
+                              onChanged: (value){
+                                setState(() {
+                                  if(value) {
+                                    p.items.add(_nameController.text);
+                                    _peopleToSplit++;
+                                  }
+                                  else {
+                                    p.items.remove(_nameController.text);
+                                    _peopleToSplit--;
+                                  }
+                                });
+                              },
+                            ),
+                            SizedBox(width: 15.0),
+                            Text(p.name)
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: RaisedButton(
+                            onPressed: _canSave()
+                                ? (){_saveItem(model);}
+                                : null,
+                            child: Text(AppLocalizations.of(context).translate(StringKey.SAVE)),
+                            color: SplitBillsColors.PRIMARY_COLOR,
+                            textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
+                          ),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            );
-          }
-      )
+                );
+              }
+          )
+      ),
     );
   }
 }
