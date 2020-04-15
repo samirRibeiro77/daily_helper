@@ -52,9 +52,7 @@ class _HomeHomeState extends State<HomeHome> {
           ),
         ),
         SizedBox(height: 10.0),
-        Expanded(
-          child: _createGrid(),
-        )
+        _createGrid()
       ],
     );
   }
