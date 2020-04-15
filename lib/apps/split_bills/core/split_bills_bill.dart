@@ -19,8 +19,8 @@ class SplitBillsBill {
 
     this._items = itemList.map((i) => SplitBillsItem.fromJson(i)).toList();
     this._people = peopleList.map((p) => SplitBillsPerson.fromJson(p)).toList();
-    this.discount = double.parse(json["discount"].toString());
-    this.taxes = double.parse(json["taxes"].toString());
+    this.discount = 0.0;
+    this.taxes = 0.0;
   }
 
   void addItem(SplitBillsItem item) {
@@ -32,8 +32,6 @@ class SplitBillsBill {
   }
 
   Map<String, dynamic> toJson() => {
-    "discount": this.discount,
-    "taxes": this.taxes,
     "items": this._items.map((i) {return i.toJson();}).toList(),
     "people": this._people.map((p) {return p.toJson();}).toList()
   };

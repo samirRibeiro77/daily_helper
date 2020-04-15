@@ -27,36 +27,26 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
 
   void _changeDiscount(SplitBillModel model) {
     var _discount = 0.0;
-    if (!_discountController.text.isEmpty) {
+    if (_discountController.text.isNotEmpty) {
       _discount = double.parse(_discountController.text);
     }
-
-    model.bill.discount = _discount/100;
-    model.saveBill();
-
-    _getTotalPrice(model);
+    model.applyDiscount(_discount);
   }
 
   void _changeTaxes(SplitBillModel model) {
     var _taxes = 0.0;
-    if (!_taxesController.text.isEmpty) {
+    if (_taxesController.text.isNotEmpty) {
       _taxes = double.parse(_taxesController.text);
     }
-
-    model.bill.taxes = _taxes/100;
-    model.saveBill();
-
-    _getTotalPrice(model);
+    model.applyTaxes(_taxes);
   }
 
   void _getTotalPrice(SplitBillModel model) {
     _totalMissing = 0.0;
-     model.bill.items.forEach((i) {
+    model.bill.items.forEach((i) {
       _totalMissing += i.value;
     });
-    setState(() {
-      _totalMissing = _totalMissing - (_totalMissing * model.bill.discount) + (_totalMissing * model.bill.taxes);
-    });
+    _totalMissing = _totalMissing - (_totalMissing * model.bill.discount) + (_totalMissing * model.bill.taxes);
   }
 
   @override
@@ -68,6 +58,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
             return Center(child: CircularProgressIndicator());
           }
 
+          _getTotalPrice(model);
           return ExpansionTile(
             title: Text(AppLocalizations.of(context).translate(StringKey.TOTAL)),
             children: <Widget>[

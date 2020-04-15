@@ -26,9 +26,11 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
   _SplitBillsAddItemState(this._editing);
 
   void _loadEdit(SplitBillModel model) {
-    var item = model.bill.items.firstWhere((i) => i.name == _editing);
-    _nameController.text = item.name;
-    _valueController.text = item.value.toStringAsFixed(2);
+    if(_editing.isNotEmpty) {
+      var item = model.bill.items.firstWhere((i) => i.name == _editing);
+      _nameController.text = item.name;
+      _valueController.text = item.value.toStringAsFixed(2);
+    }
   }
 
   bool _canSave() {
@@ -40,7 +42,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
   void _saveItem(SplitBillModel model) {
     var itemBill = SplitBillsItem(
         _nameController.text,
-        double.parse(_valueController.text),
+        double.parse(_valueController.text.replaceAll(',', '.')),
         _peopleToSplit
       );
 
@@ -65,64 +67,64 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
       ),
       body: ScopedModelDescendant<SplitBillModel>(
           builder: (context, child, model) {
-            _loadEdit(model);
+            if (model.isLoading) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-            return Padding(
+            _loadEdit(model);
+            return ListView(
               padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  SplitBillsTextField(
-                    label: AppLocalizations.of(context).translate(StringKey.NAME),
-                    controller: _nameController,
-                  ),
-                  SplitBillsTextField(
-                    label: AppLocalizations.of(context).translate(StringKey.PRICE),
-                    controller: _valueController,
-                    isNumber: true,
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                      children: model.bill.people.map((p) {
-                        return Row(
-                          children: <Widget>[
-                            Checkbox(
-                              value: p.items.contains(_nameController.text),
-                              onChanged: (value){
-                                setState(() {
-                                  if(value) {
-                                    p.items.add(_nameController.text);
-                                    _peopleToSplit++;
-                                  }
-                                  else {
-                                    p.items.remove(_nameController.text);
-                                    _peopleToSplit--;
-                                  }
-                                });
-                              },
-                            ),
-                            SizedBox(width: 15.0),
-                            Text(p.name)
-                          ],
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: RaisedButton(
-                          onPressed: _canSave()
-                              ? (){_saveItem(model);}
-                              : null,
-                          child: Text(AppLocalizations.of(context).translate(StringKey.SAVE)),
-                          color: SplitBillsColors.PRIMARY_COLOR,
-                          textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
+              children: [
+                SplitBillsTextField(
+                  label: AppLocalizations.of(context).translate(StringKey.NAME),
+                  controller: _nameController,
+                ),
+                SplitBillsTextField(
+                  label: AppLocalizations.of(context).translate(StringKey.PRICE),
+                  controller: _valueController,
+                  isNumber: true,
+                ),
+                Column(
+                  children: model.bill.people.map((p) {
+                    return Row(
+                      children: <Widget>[
+                        Checkbox(
+                          value: p.items.contains(_nameController.text),
+                          activeColor: SplitBillsColors.PRIMARY_COLOR,
+                          onChanged: (value){
+                            setState(() {
+                              if(value) {
+                                p.items.add(_nameController.text);
+                                _peopleToSplit++;
+                              }
+                              else {
+                                p.items.remove(_nameController.text);
+                                _peopleToSplit--;
+                              }
+                            });
+                          },
                         ),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                        SizedBox(width: 15.0),
+                        Text(p.name)
+                      ],
+                    );
+                  }).toList(),
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: RaisedButton(
+                        onPressed: _canSave()
+                            ? (){_saveItem(model);}
+                            : null,
+                        child: Text(AppLocalizations.of(context).translate(StringKey.SAVE)),
+                        color: SplitBillsColors.PRIMARY_COLOR,
+                        textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
+                      ),
+                    )
+                  ],
+                )
+              ],
             );
           }
       )

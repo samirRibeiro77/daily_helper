@@ -46,7 +46,7 @@ class SplitBillsDatabase {
   }
 
   Future<Null> clearDatabase() async {
-    var peopleFile = await _getFile();
-    peopleFile.delete(recursive: true);
+    var databaseFile = await _getFile();
+    await databaseFile.delete(recursive: true);
   }
 }

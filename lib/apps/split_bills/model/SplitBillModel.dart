@@ -26,13 +26,19 @@ class SplitBillModel extends Model {
   Future<Null> _load() async {
     _startLoading();
     bill = SplitBillsBill.createNew();
-    var existBill = await _database.existBill();
+    try {
+      var existBill = await _database.existBill();
 
-    if(existBill) {
-      var data = await _database.readData();
-      bill = SplitBillsBill.fromJson(json.decode(data));
+      if(existBill) {
+        var data = await _database.readData();
+        bill = SplitBillsBill.fromJson(json.decode(data));
+      }
+      else {
+        bill = SplitBillsBill.createNew();
+      }
     }
-    else {
+    catch(e) {
+      print(e);
       bill = SplitBillsBill.createNew();
     }
     _finishLoading();
@@ -66,9 +72,24 @@ class SplitBillModel extends Model {
     _finishLoading();
   }
 
-  void clearDatabase() {
+  void applyDiscount(double discount) {
     _startLoading();
-    this._database.clearDatabase();
+    this.bill.discount = discount / 100;
+    this._database.save(bill);
+    _finishLoading();
+  }
+
+  void applyTaxes(double taxes) {
+    _startLoading();
+    this.bill.taxes = taxes / 100;
+    this._database.save(bill);
+    _finishLoading();
+  }
+
+  void clearDatabase() async {
+    _startLoading();
+    await this._database.clearDatabase();
+    bill = SplitBillsBill.createNew();
     _finishLoading();
   }
 }
