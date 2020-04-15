@@ -19,7 +19,8 @@ class SplitBillsAddItem extends StatefulWidget {
 class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
   var _nameController = TextEditingController();
   var _valueController = TextEditingController();
-  var _peopleToSplit = 0;
+  var _peopleToSplit = [];
+  var _canSave = false;
 
   final String _editing;
 
@@ -33,17 +34,19 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
     }
   }
 
-  bool _canSave() {
-    return _nameController.text.isNotEmpty
-        && _valueController.text.isNotEmpty
-        && _peopleToSplit > 0;
+  void _checkCanSave() {
+    setState(() {
+      _canSave = _nameController.text.isNotEmpty
+          && _valueController.text.isNotEmpty
+          && _peopleToSplit.length > 0;
+    });
   }
 
   void _saveItem(SplitBillModel model) {
     var itemBill = SplitBillsItem(
         _nameController.text,
         double.parse(_valueController.text.replaceAll(',', '.')),
-        _peopleToSplit
+        _peopleToSplit.length
       );
 
     var search = model.bill.items.where((i) => i.name == itemBill.name);
@@ -51,6 +54,10 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
       itemBill.peopleToSplit += search.first.peopleToSplit;
       model.bill.items.remove(search.first);
     }
+
+    _peopleToSplit.forEach((ps) {
+      model.bill.people.firstWhere((p) => p.name == ps).items.add(itemBill.name);
+    });
 
     model.addItem(itemBill);
 
@@ -83,6 +90,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                         SplitBillsTextField(
                           label: AppLocalizations.of(context).translate(StringKey.NAME),
                           controller: _nameController,
+                          onChangeFunction: _checkCanSave,
                         )
                       ],
                     ),
@@ -92,6 +100,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                           label: AppLocalizations.of(context).translate(StringKey.PRICE),
                           controller: _valueController,
                           isNumber: true,
+                          onChangeFunction: _checkCanSave,
                         )
                       ],
                     ),
@@ -100,18 +109,18 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                         return Row(
                           children: <Widget>[
                             Checkbox(
-                              value: p.items.contains(_nameController.text),
+                              value: _peopleToSplit.contains(p.name),
                               onChanged: (value){
                                 setState(() {
                                   if(value) {
-                                    p.items.add(_nameController.text);
-                                    _peopleToSplit++;
+                                    _peopleToSplit.add(p.name);
                                   }
                                   else {
-                                    p.items.remove(_nameController.text);
-                                    _peopleToSplit--;
+                                    _peopleToSplit.remove(p.name);
                                   }
                                 });
+
+                                _checkCanSave();
                               },
                             ),
                             SizedBox(width: 15.0),
@@ -124,7 +133,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                       children: <Widget>[
                         Expanded(
                           child: RaisedButton(
-                            onPressed: _canSave()
+                            onPressed: _canSave
                                 ? (){_saveItem(model);}
                                 : null,
                             child: Text(AppLocalizations.of(context).translate(StringKey.SAVE)),
