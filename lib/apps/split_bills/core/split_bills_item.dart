@@ -1,24 +1,33 @@
-class SplitBillsItem {
-  String _name;
-  double _value;
-  int peopleToSplit;
+import 'package:flutter/material.dart';
 
-  SplitBillsItem(this._name, this._value, this.peopleToSplit);
+class SplitBillsItem {
+  int id;
+  String name;
+  double value;
+  List<int> people;
+
+  SplitBillsItem({
+    this.id,
+    @required this.name,
+    @required this.value,
+    @required this.people
+  });
 
   SplitBillsItem.fromJson(Map<String, dynamic> json) {
-    this._name = json["name"].toString();
-    this._value = double.parse(json["value"].toString());
-    this.peopleToSplit = int.parse(json["peopleToSplit"].toString());
+    var peopleList = json["people"] as List<dynamic>;
+
+    this.id = int.parse(json["id"].toString());
+    this.name = json["name"].toString();
+    this.value = double.parse(json["value"].toString());
+    this.people = peopleList.map((p) => p as int).toList();
   }
 
   Map<String, dynamic> toJson() => {
-    "name": _name,
-    "value": _value,
-    "peopleToSplit": peopleToSplit
+    "id": id,
+    "name": name,
+    "value": value,
+    "people": people
   };
 
-
-  String get name => _name;
-  double get splitValue => _value / peopleToSplit;
-  double get value => _value;
+  double get splitPrice => value / people.length;
 }

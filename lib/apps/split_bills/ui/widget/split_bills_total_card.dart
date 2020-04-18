@@ -1,6 +1,7 @@
 import 'package:daily_helper/app_localizations.dart';
 import 'package:daily_helper/apps/split_bills/model/SplitBillModel.dart';
 import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
+import 'package:daily_helper/apps/split_bills/ui/tile/person_price_tile.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_textfield.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
   }
 
   void _getTotalPrice(SplitBillModel model) {
-    _totalMissing = 0.0;
+    /*_totalMissing = 0.0;
     _totalPaid = 0.0;
 
     model.bill.items.forEach((i) {
@@ -59,7 +60,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
       _totalPaid = p.paid ? _totalPaid + total : _totalPaid;
     });
 
-    _totalMissing = (_totalMissing - (_totalMissing * model.bill.discount) + (_totalMissing * model.bill.taxes)) - _totalPaid;
+    _totalMissing = (_totalMissing - (_totalMissing * model.bill.discount) + (_totalMissing * model.bill.taxes)) - _totalPaid;*/
   }
 
   @override
@@ -113,27 +114,9 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: model.bill.people.map((p) {
-                    var total = p.totalPrice(
-                        discount: model.bill.discount,
-                        taxes: model.bill.taxes,
-                        listItem: model.bill.items
-                    );
-
-                    return Row(
-                      children: <Widget>[
-                        Checkbox(
-                          value: p.paid,
-                          onChanged: (value){
-                            setState(() {
-                              p.paid = value;
-                            });
-                          },
-                        ),
-                        SizedBox(width: 10.0),
-                        Text(p.name),
-                        Expanded(child: SizedBox()),
-                        Text(total.toStringAsFixed(2))
-                      ],
+                    return PersonPriceTile(
+                      person: p,
+                      items: model.bill.items,
                     );
                   }).toList(),
                 ),

@@ -24,11 +24,19 @@ class SplitBillsBill {
   }
 
   void addItem(SplitBillsItem item) {
+    if (item.id == null) {
+      item.id = this.items.length;
+    }
     this._items.add(item);
+    print(item.toJson());
   }
 
   void addPerson(SplitBillsPerson person) {
+    if (person.id == null) {
+      person.id = this.people.length;
+    }
     this._people.add(person);
+    print(person.toJson());
   }
 
   Map<String, dynamic> toJson() => {

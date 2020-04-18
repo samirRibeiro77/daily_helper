@@ -60,9 +60,29 @@ class SplitBillModel extends Model {
 
   void addItem(SplitBillsItem item) {
     _startLoading();
+    if (item.id != null) {
+      _removeItem(item.id);
+    }
     this.bill.addItem(item);
     this._database.save(bill);
     _finishLoading();
+  }
+
+  void removeItem(int id) {
+    _startLoading();
+    _removeItem(id);
+    _finishLoading();
+  }
+
+  void _removeItem(int id) {
+    try {
+      var item = this.bill.items.firstWhere((i) => i.id == id);
+      this.bill.items.remove(item);
+      this._database.save(bill);
+    }
+    catch (e) {
+      print(e);
+    }
   }
 
   void addPerson(SplitBillsPerson person) {

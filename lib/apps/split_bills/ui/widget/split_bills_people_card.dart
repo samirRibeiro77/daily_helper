@@ -2,6 +2,7 @@ import 'package:daily_helper/app_localizations.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_person.dart';
 import 'package:daily_helper/apps/split_bills/model/SplitBillModel.dart';
 import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
+import 'package:daily_helper/apps/split_bills/ui/tile/person_tile.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_textfield.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
 
   void _addPeople(SplitBillModel model) {
     if(_nameController.text.isNotEmpty) {
-      model.addPerson(SplitBillsPerson(_nameController.text));
+      model.addPerson(SplitBillsPerson(name: _nameController.text));
       _nameController.clear();
     }
   }
@@ -63,10 +64,7 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: model.bill.people.map((p) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.0),
-                        child: Text(p.name),
-                      );
+                      return PersonTile(p);
                     }).toList(),
                   ),
                 )
