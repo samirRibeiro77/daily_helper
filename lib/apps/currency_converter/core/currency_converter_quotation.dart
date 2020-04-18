@@ -25,8 +25,6 @@ class CurrencyConverterQuotation {
         quotationJson["results"]["currencies"]["BTC"]["buy"],
         quotationJson["results"]["currencies"]["BTC"]["sell"]
     );
-
-    print(quotation);
     return quotationJson;
   }
 

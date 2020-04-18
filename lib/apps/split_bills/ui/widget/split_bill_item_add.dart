@@ -30,7 +30,6 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
   void _loadEdit(SplitBillsBill bill) {
     if(_itemId != null && _run) {
       var item = bill.items.firstWhere((i) => i.id == _itemId);
-      print(item.toJson());
       _nameController.text = item.name;
       _valueController.text = item.value.toStringAsFixed(2);
       _peopleToSplit = item.people;
