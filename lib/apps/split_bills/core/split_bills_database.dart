@@ -14,9 +14,29 @@ class SplitBillsDatabase {
   void _createOpenDatabase() async {
     _database = await openDatabase(_dbName, version: _dbVersion,
       onCreate: (db, version) async {
-        await db.execute(SplitBillsBill.CREATE_TABLE);
-        await db.execute(SplitBillsItem.CREATE_TABLE);
-        await db.execute(SplitBillsPerson.CREATE_TABLE);
+        //T_BILL
+        try {
+          await db.execute(SplitBillsBill.CREATE_TABLE);
+        }
+        catch(e) {
+          print(e);
+        }
+
+        //T_ITEM
+        try {
+          await db.execute(SplitBillsItem.CREATE_TABLE);
+        }
+        catch(e) {
+          print(e);
+        }
+
+        //T_PEOPLE
+        try {
+          await db.execute(SplitBillsPerson.CREATE_TABLE);
+        }
+        catch(e) {
+          print(e);
+        }
       }
     );
   }
@@ -37,6 +57,24 @@ class SplitBillsDatabase {
 
   Future<List<dynamic>> getAll({@required String table}) async {
     List<Map> result = await _database.query(table);
+    if (result.length <= 0) {
+      return null;
+    }
+
+    return result.map((i) => _getDatabaseRow(table, i)).toList();
+  }
+
+  Future<List<dynamic>> query({
+    @required String table,
+    @required List<String> where,
+    @required List<dynamic> whereArgs
+  }) async {
+    List<Map> result = await _database.query(
+        table,
+        where: where.map((e) => "$e: ?").join(", "),
+        whereArgs: whereArgs
+    );
+
     if (result.length <= 0) {
       return null;
     }

@@ -29,12 +29,12 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
 
   void _loadEdit(SplitBillsBill bill) {
     if(_itemId != null && _run) {
-      var item = bill.items.firstWhere((i) => i.id == _itemId);
-      print(item.toJson());
+      /*var item = bill.items.firstWhere((i) => i == _itemId.toString());
+      print(item);
       _nameController.text = item.name;
       _valueController.text = item.value.toStringAsFixed(2);
       _peopleToSplit = item.people;
-      _run = false;
+      _run = false;*/
     }
   }
 

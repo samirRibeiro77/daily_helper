@@ -25,21 +25,10 @@ class SplitBillModel extends Model {
 
   Future<Null> _load() async {
     _startLoading();
-    bill = SplitBillsBill.createNew();
-    try {
-      var existBill = await _database.existBill();
-
-      if(existBill) {
-        var data = await _database.readData();
-        bill = SplitBillsBill.fromJson(json.decode(data));
-      }
-      else {
-        bill = SplitBillsBill.createNew();
-      }
-    }
-    catch(e) {
-      print(e);
+    var billList = await _database.getAll(table: SplitBillsBill.TABLE_NAME);
+    if (billList != null) {
       bill = SplitBillsBill.createNew();
+      bill.id = await _database.insert(table: SplitBillsBill.TABLE_NAME, map: bill.toDB());
     }
     _finishLoading();
   }
@@ -52,64 +41,5 @@ class SplitBillModel extends Model {
   void _finishLoading() {
     isLoading = false;
     notifyListeners();
-  }
-
-  void saveBill() {
-    this._database.save(bill);
-  }
-
-  void addItem(SplitBillsItem item) {
-    _startLoading();
-    if (item.id != null) {
-      _removeItem(item.id);
-    }
-    this.bill.addItem(item);
-    this._database.save(bill);
-    _finishLoading();
-  }
-
-  void removeItem(int id) {
-    _startLoading();
-    _removeItem(id);
-    _finishLoading();
-  }
-
-  void _removeItem(int id) {
-    try {
-      var item = this.bill.items.firstWhere((i) => i.id == id);
-      this.bill.items.remove(item);
-      this._database.save(bill);
-    }
-    catch (e) {
-      print(e);
-    }
-  }
-
-  void addPerson(SplitBillsPerson person) {
-    _startLoading();
-    this.bill.addPerson(person);
-    this._database.save(bill);
-    _finishLoading();
-  }
-
-  void applyDiscount(double discount) {
-    _startLoading();
-    this.bill.discount = discount / 100;
-    this._database.save(bill);
-    _finishLoading();
-  }
-
-  void applyTaxes(double taxes) {
-    _startLoading();
-    this.bill.taxes = taxes / 100;
-    this._database.save(bill);
-    _finishLoading();
-  }
-
-  void clearDatabase() async {
-    _startLoading();
-    await this._database.clearDatabase();
-    bill = SplitBillsBill.createNew();
-    _finishLoading();
   }
 }

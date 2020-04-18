@@ -24,7 +24,7 @@ class _PersonPriceTileState extends State<PersonPriceTile> {
   @override
   Widget build(BuildContext context) {
     var total = 0.0;
-    items.where((i) => i.people.contains(person.id)).forEach((i) {
+    items.where((i) => i.people.contains(person.id.toString())).forEach((i) {
       total += i.value;
     });
 
