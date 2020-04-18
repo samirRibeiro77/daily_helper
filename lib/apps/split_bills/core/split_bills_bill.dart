@@ -57,4 +57,30 @@ class SplitBillsBill {
     "peopleId": this._peopleId,
     "itemId": this._itemId
   };
+
+  double get totalMissing {
+    var total = 0.0;
+    this.people
+        .where((p) => !p.paid)
+        .forEach((p) { total += getTotalPerson(p.id); });
+    return total;
+  }
+
+  double get totalPaid {
+    var total = 0.0;
+    this.people
+        .where((p) => p.paid)
+        .forEach((p) { total += getTotalPerson(p.id); });
+    return total;
+  }
+
+  double getTotalPerson(int id) {
+    var person = this.people.firstWhere((p) => p.id == id);
+    var total = 0.0;
+    this.items.where((i) => i.people.contains(person.id)).forEach((i) {
+      total += i.value / i.people.length;
+    });
+
+    return total - (total*this.discount) + (total*this.taxes);
+  }
 }

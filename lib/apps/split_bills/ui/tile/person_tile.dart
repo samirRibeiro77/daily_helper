@@ -19,7 +19,7 @@ class PersonTile extends StatelessWidget {
             onTap: () {
               SplitBillModel.of(context).removePerson(person.id);
             },
-            child: Icon(Icons.delete_outline, color: Colors.red,),
+            child: Icon(Icons.remove, color: Colors.red[800]),
           )
         ],
       ),

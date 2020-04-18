@@ -20,9 +20,6 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
   final PageController _pageController;
   var _discountController = TextEditingController();
   var _taxesController = TextEditingController();
-  
-  var _totalMissing = 0.0;
-  var _totalPaid = 0.0;
 
   _SplitBillsTotalCardState(this._pageController);
 
@@ -42,27 +39,6 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
     model.applyTaxes(_taxes);
   }
 
-  void _getTotalPrice(SplitBillModel model) {
-    /*_totalMissing = 0.0;
-    _totalPaid = 0.0;
-
-    model.bill.items.forEach((i) {
-      _totalMissing += i.value;
-    });
-
-    model.bill.people.forEach((p) {
-      var total = p.totalPrice(
-          discount: model.bill.discount,
-          taxes: model.bill.taxes,
-          listItem: model.bill.items
-      );
-
-      _totalPaid = p.paid ? _totalPaid + total : _totalPaid;
-    });
-
-    _totalMissing = (_totalMissing - (_totalMissing * model.bill.discount) + (_totalMissing * model.bill.taxes)) - _totalPaid;*/
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -72,7 +48,6 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
             return Center(child: CircularProgressIndicator());
           }
 
-          _getTotalPrice(model);
           return ExpansionTile(
             title: Text(AppLocalizations.of(context).translate(StringKey.TOTAL)),
             children: <Widget>[
@@ -116,7 +91,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                   children: model.bill.people.map((p) {
                     return PersonPriceTile(
                       person: p,
-                      items: model.bill.items,
+                      bill: model.bill,
                     );
                   }).toList(),
                 ),
@@ -152,14 +127,14 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(AppLocalizations.of(context).translate(StringKey.TOTAL_PAID)),
-                        Text(_totalPaid.toStringAsFixed(2))
+                        Text(model.bill.totalPaid.toStringAsFixed(2))
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(AppLocalizations.of(context).translate(StringKey.TOTAL_MISSING)),
-                        Text(_totalMissing.toStringAsFixed(2))
+                        Text(model.bill.totalMissing.toStringAsFixed(2))
                       ],
                     )
                   ],

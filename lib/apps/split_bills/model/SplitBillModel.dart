@@ -127,6 +127,12 @@ class SplitBillModel extends Model {
     _finishLoading();
   }
 
+  void peoplePaid(int id, bool value) {
+    _startLoading();
+    bill.people.firstWhere((p) => p.id == id).paid = value;
+    _finishLoading();
+  }
+
   void clearDatabase() async {
     _startLoading();
     await this._database.clearDatabase();

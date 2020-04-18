@@ -30,6 +30,7 @@
   "items": "Itens",
   "add_edit_item": "Adicionar/Editar Item",
   "save": "Salvar",
+  "remove": "Remover",
   "total": "Total",
   "total_paid": "Total pago",
   "total_missing": "Total faltante",

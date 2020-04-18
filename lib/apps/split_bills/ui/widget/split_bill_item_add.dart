@@ -97,13 +97,18 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                 ],
               ),
               Column(
-                children: bill.people.where((p) => !p.paid).map((p) {
+                children: bill.people.map((p) {
                   return Row(
                     children: <Widget>[
                       Checkbox(
-                        value: _peopleToSplit.contains(p.id),
+                        value: p.paid ? true : _peopleToSplit.contains(p.id),
+                        activeColor: p.paid ? Colors.grey : SplitBillsColors.PRIMARY_COLOR,
                         onChanged: (value){
                           setState(() {
+                            if (p.paid) {
+                              return;
+                            }
+
                             if(value) {
                               _peopleToSplit.add(p.id);
                             }
@@ -130,6 +135,20 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                           : null,
                       child: Text(AppLocalizations.of(context).translate(StringKey.SAVE)),
                       color: SplitBillsColors.PRIMARY_COLOR,
+                      textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
+                    ),
+                  )
+                ],
+              ),
+              _itemId == null
+                  ? SizedBox(height: 10.0)
+                  : Row(
+                children: <Widget>[
+                  Expanded(
+                    child: RaisedButton(
+                      onPressed: (){ SplitBillModel.of(context).removeItem(_itemId); },
+                      child: Text(AppLocalizations.of(context).translate(StringKey.REMOVE)),
+                      color: Colors.red[700],
                       textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
                     ),
                   )

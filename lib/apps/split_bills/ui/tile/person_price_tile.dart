@@ -1,41 +1,38 @@
-import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
+import 'package:daily_helper/apps/split_bills/core/split_bills_bill.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_person.dart';
+import 'package:daily_helper/apps/split_bills/model/SplitBillModel.dart';
 import 'package:flutter/material.dart';
 
 class PersonPriceTile extends StatefulWidget {
   final SplitBillsPerson person;
-  final List<SplitBillsItem> items;
+  final SplitBillsBill bill;
 
   PersonPriceTile({
     @required this.person,
-    @required this.items
+    @required this.bill
   });
 
   @override
-  _PersonPriceTileState createState() => _PersonPriceTileState(person, items);
+  _PersonPriceTileState createState() => _PersonPriceTileState(person, bill);
 }
 
 class _PersonPriceTileState extends State<PersonPriceTile> {
   final SplitBillsPerson person;
-  final List<SplitBillsItem> items;
+  final SplitBillsBill bill;
 
-  _PersonPriceTileState(this.person, this.items);
+
+  _PersonPriceTileState(this.person, this.bill);
 
   @override
   Widget build(BuildContext context) {
-    var total = 0.0;
-    items.where((i) => i.people.contains(person.id)).forEach((i) {
-      total += i.value;
-    });
+    var total = bill.getTotalPerson(person.id);
 
     return Row(
       children: <Widget>[
         Checkbox(
           value: person.paid,
           onChanged: (value){
-            setState(() {
-              person.paid = value;
-            });
+            SplitBillModel.of(context).peoplePaid(person.id, value);
           },
         ),
         SizedBox(width: 10.0),
@@ -46,19 +43,3 @@ class _PersonPriceTileState extends State<PersonPriceTile> {
     );
   }
 }
-
-
-/*class PersonPriceTile extends StatelessWidget {
-  final SplitBillsPerson person;
-  final List<SplitBillsItem> items;
-
-  PersonPriceTile({
-    @required this.person,
-    @required this.items
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return
-  }
-}*/
