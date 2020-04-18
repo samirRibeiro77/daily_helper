@@ -55,7 +55,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
         people: _peopleToSplit
     );
 
-    SplitBillModel.of(context).addItem(item);
+    SplitBillModel.of(context).addUpdateItem(item);
 
     Navigator.of(context).pop();
   }
@@ -97,7 +97,7 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                 ],
               ),
               Column(
-                children: bill.people.map((p) {
+                children: bill.people.where((p) => !p.paid).map((p) {
                   return Row(
                     children: <Widget>[
                       Checkbox(

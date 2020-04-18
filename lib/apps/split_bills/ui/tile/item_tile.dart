@@ -1,4 +1,5 @@
 import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
+import 'package:daily_helper/apps/split_bills/model/SplitBillModel.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bill_item_add.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,12 @@ class ItemTile extends StatelessWidget {
               },
               child: Icon(Icons.more_vert),
             ),
+          ),
+          GestureDetector(
+            onTap: () {
+              SplitBillModel.of(context).removeItem(item.id);
+            },
+            child: Icon(Icons.delete_outline, color: Colors.red,),
           )
         ],
       ),

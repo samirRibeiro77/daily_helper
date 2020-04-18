@@ -58,23 +58,20 @@ class SplitBillModel extends Model {
     this._database.save(bill);
   }
 
-  void addItem(SplitBillsItem item) {
+  void addUpdateItem(SplitBillsItem item) {
     _startLoading();
     if (item.id != null) {
-      _removeItem(item.id);
+      this.bill.updateItem(item);
     }
-    this.bill.addItem(item);
+    else {
+      this.bill.addItem(item);
+    }
     this._database.save(bill);
     _finishLoading();
   }
 
   void removeItem(int id) {
     _startLoading();
-    _removeItem(id);
-    _finishLoading();
-  }
-
-  void _removeItem(int id) {
     try {
       var item = this.bill.items.firstWhere((i) => i.id == id);
       this.bill.items.remove(item);
@@ -83,12 +80,36 @@ class SplitBillModel extends Model {
     catch (e) {
       print(e);
     }
+    _finishLoading();
   }
 
-  void addPerson(SplitBillsPerson person) {
+  void addUpdatePerson(SplitBillsPerson person) {
     _startLoading();
-    this.bill.addPerson(person);
+    if (person.id != null) {
+      this.bill.updatePerson(person);
+    }
+    else {
+      this.bill.addPerson(person);
+    }
     this._database.save(bill);
+    _finishLoading();
+  }
+
+  void removePerson(int id) {
+    _startLoading();
+    try {
+      var person = this.bill.people.firstWhere((p) => p.id == id);
+
+      this.bill.items
+          .where((i) => i.people.contains(person.id))
+          .forEach((i) { i.people.remove(person.id); });
+
+      this.bill.people.remove(person);
+      this._database.save(bill);
+    }
+    catch (e) {
+      print(e);
+    }
     _finishLoading();
   }
 
