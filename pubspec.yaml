@@ -33,4 +33,4 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon/daily_helper_icon.png"
+  image_path: "assets/icon/daily_helper_icon_v2.png"

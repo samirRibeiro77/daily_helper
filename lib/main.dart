@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
               }
             }
             catch(e) {
-              print(e.toString());
               return Locale('en', 'US');
             }
           }
