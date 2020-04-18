@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
 
 class SplitBillsItem {
+  static const TABLE_NAME = 'ITEM';
+  static const _cBillId = 'BILL_ID';
+  static const _cName = 'NAME';
+  static const _cValue = 'VALUE';
+  static const _cPeople = 'PEOPLE';
+
+  static const CREATE_TABLE = "CREATE TABLE $TABLE_NAME (id INTEGER PRIMARY KEY, $_cBillId INTEGER, $_cName TEXT, $_cPeople TEXT, $_cValue REAL)";
+
   int id;
   String name;
   double value;
-  List<int> people;
+  String people;
 
   SplitBillsItem({
     this.id,
     @required this.name,
     @required this.value,
-    @required this.people
+    this.people
   });
 
-  SplitBillsItem.fromJson(Map<String, dynamic> json) {
-    var peopleList = json["people"] as List<dynamic>;
-
-    this.id = int.parse(json["id"].toString());
-    this.name = json["name"].toString();
-    this.value = double.parse(json["value"].toString());
-    this.people = peopleList.map((p) => p as int).toList();
+  SplitBillsItem.fromDB(Map<String, dynamic> db) {
+    this.id = db["id"];
+    this.name = db[_cName];
+    this.value = db[_cValue];
+    this.people = db[_cPeople];
   }
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "value": value,
-    "people": people
+  Map<String, dynamic> toDB() => {
+    _cName: this.name,
+    _cValue: this.value,
+    _cPeople: this.people
   };
-
-  double get splitPrice => value / people.length;
 }

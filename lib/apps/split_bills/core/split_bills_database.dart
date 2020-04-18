@@ -1,52 +1,79 @@
-import 'dart:io';
+import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
+import 'package:daily_helper/apps/split_bills/core/split_bills_person.dart';
+import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_bill.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:convert';
 
 class SplitBillsDatabase {
+  static const _dbName = 'dailyHelperSplitBills.db';
+  static const _dbVersion = 1;
 
-  SplitBillsDatabase._privateConstructor();
+  Database _database;
+  SplitBillsDatabase._privateConstructor() {_createOpenDatabase();}
+
+  void _createOpenDatabase() async {
+    _database = await openDatabase(_dbName, version: _dbVersion,
+      onCreate: (db, version) async {
+        await db.execute(SplitBillsBill.CREATE_TABLE);
+        await db.execute(SplitBillsItem.CREATE_TABLE);
+        await db.execute(SplitBillsPerson.CREATE_TABLE);
+      }
+    );
+  }
 
   static final SplitBillsDatabase instance = SplitBillsDatabase._privateConstructor();
 
-  Future<File> _getFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    var file = File("${directory.path}/split_bills.json");
-    var fileExists = await file.exists();
-    if (!fileExists) {
-      await file.create(recursive: true);
-    }
-    return file;
-  }
-
-  Future<String> readData() async {
-    try {
-      var data = await _getFile();
-      return data.readAsString();
-    } catch (e) {
+  Future<dynamic> get({
+    @required String table,
+    @required int id
+  }) async {
+    List<Map> result = await _database.rawQuery("SELECT * FROM $table WHERE id=$id");
+    if (result.length <= 0) {
       return null;
     }
+
+    return _getDatabaseRow(table, result.first);
   }
 
-  Future<bool> existBill() async {
-    try {
-      var data = await _getFile();
-      return data.exists();
+  Future<List<dynamic>> getAll({@required String table}) async {
+    List<Map> result = await _database.query(table);
+    if (result.length <= 0) {
+      return null;
     }
-    catch (e) {
-      return false;
+
+    return result.map((i) => _getDatabaseRow(table, i)).toList();
+  }
+
+  dynamic _getDatabaseRow(String table, Map<String, dynamic> map) {
+    switch(table) {
+      case SplitBillsBill.TABLE_NAME: return SplitBillsBill.fromDB(map);
+      case SplitBillsItem.TABLE_NAME: return SplitBillsItem.fromDB(map);
+      case SplitBillsPerson.TABLE_NAME: return SplitBillsPerson.fromDB(map);
+      default: return null;
     }
   }
 
-  Future<File> save(SplitBillsBill bill) async {
-    String dataJson = json.encode(bill.toJson());
-    var file = await _getFile();
-    file = await file.writeAsString(dataJson);
-    return file;
+  Future<int> insert({
+    @required String table,
+    @required Map<String, dynamic> map
+  }) async {
+    var id = await _database.insert(table, map);
+    return id;
   }
 
-  Future<Null> clearDatabase() async {
-    var databaseFile = await _getFile();
-    await databaseFile.delete(recursive: true);
+  Future<int> update({
+    @required String table,
+    @required Map<String, dynamic> map,
+    @required int id
+  }) async {
+    return await _database.update(table, map,
+        where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> delete({
+    @required String table,
+    @required int id
+  }) async {
+    return await _database.delete(table, where: 'id = ?', whereArgs: [id]);
   }
 }

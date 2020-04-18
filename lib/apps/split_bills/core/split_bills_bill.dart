@@ -1,9 +1,14 @@
-import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
-import 'package:daily_helper/apps/split_bills/core/split_bills_person.dart';
-
 class SplitBillsBill {
-  List<SplitBillsItem> _items;
-  List<SplitBillsPerson> _people;
+  static const TABLE_NAME = 'BILL';
+  static const _cItem = 'ITEM';
+  static const _cPeople = 'PEOPLE';
+  static const _cDiscount = 'DISCOUNT';
+  static const _cTaxes = 'TAXES';
+
+  static const CREATE_TABLE = "CREATE TABLE $TABLE_NAME (id INTEGER PRIMARY KEY, $_cItem TEXT, $_cPeople TEXT, $_cDiscount REAL, $_cTaxes REAL)";
+
+  List<String> _items;
+  List<String> _people;
   double discount, taxes;
 
   SplitBillsBill.createNew() {
@@ -13,37 +18,17 @@ class SplitBillsBill {
     this.taxes = 0.0;
   }
 
-  SplitBillsBill.fromJson(Map<String, dynamic> json) {
-    var itemList = json["items"] as List<dynamic>;
-    var peopleList = json["people"] as List<dynamic>;
-
-    this._items = itemList.map((i) => SplitBillsItem.fromJson(i)).toList();
-    this._people = peopleList.map((p) => SplitBillsPerson.fromJson(p)).toList();
-    this.discount = 0.0;
-    this.taxes = 0.0;
+  SplitBillsBill.fromDB(Map<String, dynamic> db) {
+    this._items = db[_cItem].toString().split(", ");
+    this._people = db[_cPeople].toString().split(", ");
+    this.discount = db[_cDiscount];
+    this.taxes = db[_cTaxes];
   }
 
-  void addItem(SplitBillsItem item) {
-    if (item.id == null) {
-      item.id = this.items.length;
-    }
-    this._items.add(item);
-    print(item.toJson());
-  }
-
-  void addPerson(SplitBillsPerson person) {
-    if (person.id == null) {
-      person.id = this.people.length;
-    }
-    this._people.add(person);
-    print(person.toJson());
-  }
-
-  Map<String, dynamic> toJson() => {
-    "items": this._items.map((i) {return i.toJson();}).toList(),
-    "people": this._people.map((p) {return p.toJson();}).toList()
+  Map<String, dynamic> toDB() => {
+    _cItem: this._items.join(", "),
+    _cPeople: this._people.join(", "),
+    _cDiscount: this.discount,
+    _cTaxes: this.taxes
   };
-
-  List<SplitBillsPerson> get people => _people;
-  List<SplitBillsItem> get items => _items;
 }
