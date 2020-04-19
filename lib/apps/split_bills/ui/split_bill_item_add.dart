@@ -138,20 +138,6 @@ class _SplitBillsAddItemState extends State<SplitBillsAddItem> {
                     ),
                   )
                 ],
-              ),
-              _itemId == null
-                  ? SizedBox(height: 10.0)
-                  : Row(
-                children: <Widget>[
-                  Expanded(
-                    child: RaisedButton(
-                      onPressed: (){ SplitBillModel.of(context).removeItem(_itemId); },
-                      child: Text(AppLocalizations.of(context).translate(StringKey.REMOVE)),
-                      color: Colors.red[700],
-                      textColor: SplitBillsColors.BUTTON_TEXT_COLOR,
-                    ),
-                  )
-                ],
               )
             ],
           )

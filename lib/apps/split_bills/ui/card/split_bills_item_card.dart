@@ -1,8 +1,8 @@
 import 'package:daily_helper/app_localizations.dart';
 import 'package:daily_helper/apps/split_bills/model/SplitBillModel.dart';
+import 'package:daily_helper/apps/split_bills/ui/split_bill_item_add.dart';
 import 'package:daily_helper/apps/split_bills/ui/split_bills_color.dart';
 import 'package:daily_helper/apps/split_bills/ui/tile/item_tile.dart';
-import 'package:daily_helper/apps/split_bills/ui/widget/split_bill_item_add.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';

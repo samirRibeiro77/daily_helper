@@ -39,6 +39,23 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
     model.applyTaxes(_taxes);
   }
 
+  void _closeAndClean(SplitBillModel model) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+
+    model.clearDatabase();
+    _pageController.jumpToPage(0);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _discountController.clear();
+    _taxesController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -150,8 +167,7 @@ class _SplitBillsTotalCardState extends State<SplitBillsTotalCard> {
                         color: SplitBillsColors.PRIMARY_COLOR,
                         textColor: Colors.white,
                         onPressed: () {
-                          model.clearDatabase();
-                          _pageController.jumpToPage(0);
+                          _closeAndClean(model);
                         },
                       ),
                     )

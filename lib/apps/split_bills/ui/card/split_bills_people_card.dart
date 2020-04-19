@@ -23,6 +23,13 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
     }
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(

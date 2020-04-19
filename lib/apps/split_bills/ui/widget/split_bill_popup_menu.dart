@@ -2,7 +2,7 @@ import 'package:daily_helper/app_localizations.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_item.dart';
 import 'package:daily_helper/apps/split_bills/core/split_bills_person.dart';
 import 'package:daily_helper/apps/split_bills/model/SplitBillModel.dart';
-import 'package:daily_helper/apps/split_bills/ui/widget/split_bill_item_add.dart';
+import 'package:daily_helper/apps/split_bills/ui/split_bill_item_add.dart';
 import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_textfield.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
