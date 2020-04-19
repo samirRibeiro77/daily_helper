@@ -1,7 +1,7 @@
 name: daily_helper
 description: Apps to help you on your daily routine
 
-version: 1.1.1
+version: 1.1.2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
