@@ -31,6 +31,8 @@
   "add_edit_item": "Add/Edit Item",
   "save": "Save",
   "remove": "Remove",
+  "edit": "Edit",
+  "cancel": "Cancel",
   "total": "Total",
   "total_paid": "Total paid",
   "total_missing": "Total missing",

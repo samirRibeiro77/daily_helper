@@ -1,7 +1,7 @@
 import 'package:daily_helper/app_localizations.dart';
-import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_item_card.dart';
-import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_people_card.dart';
-import 'package:daily_helper/apps/split_bills/ui/widget/split_bills_total_card.dart';
+import 'package:daily_helper/apps/split_bills/ui/card/split_bills_item_card.dart';
+import 'package:daily_helper/apps/split_bills/ui/card/split_bills_people_card.dart';
+import 'package:daily_helper/apps/split_bills/ui/card/split_bills_total_card.dart';
 import 'package:daily_helper/util/string_key.dart';
 import 'package:flutter/material.dart';
 

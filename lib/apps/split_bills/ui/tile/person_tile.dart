@@ -1,5 +1,5 @@
 import 'package:daily_helper/apps/split_bills/core/split_bills_person.dart';
-import 'package:daily_helper/apps/split_bills/model/SplitBillModel.dart';
+import 'package:daily_helper/apps/split_bills/ui/widget/split_bill_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 class PersonTile extends StatelessWidget {
@@ -15,12 +15,7 @@ class PersonTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(person.name),
-          GestureDetector(
-            onTap: () {
-              SplitBillModel.of(context).removePerson(person.id);
-            },
-            child: Icon(Icons.remove, color: Colors.red[800]),
-          )
+          SplitBillPopupMenu(person: person),
         ],
       ),
     );

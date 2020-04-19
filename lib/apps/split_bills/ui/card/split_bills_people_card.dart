@@ -36,7 +36,7 @@ class _SplitBillsPeopleCardState extends State<SplitBillsPeopleCard> {
               title: Text(AppLocalizations.of(context).translate(StringKey.PEOPLE)),
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

@@ -31,6 +31,8 @@ class StringKey {
   static const String ADD_EDIT_ITEM = 'add_edit_item';
   static const String SAVE = 'save';
   static const String REMOVE = 'remove';
+  static const String EDIT = 'edit';
+  static const String CANCEL = 'cancel';
   static const String TOTAL = 'total';
   static const String TOTAL_PAID = 'total_paid';
   static const String TOTAL_MISSING = 'total_missing';
